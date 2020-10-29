@@ -1,5 +1,6 @@
 import React from "react";
+import LessonLayout from "./Lessons";
 
 export const Lesson1 = (props) => {
-  return <div> Lesson 1</div>;
+  return <LessonLayout>Some random text here</LessonLayout>;
 };
