@@ -11,7 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +51,7 @@ export const Navbar = (props) => {
   const history = useHistory();
   const NavTo = ["lesson-1", "lesson-2", "lesson-3", "lesson-4"];
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-  const handleListItemClick = (event, index) => {
+  const handleListItemClick = (_, index) => {
     setSelectedIndex(index);
     history.push(NavTo[index]);
   };
@@ -82,6 +82,10 @@ export const Navbar = (props) => {
           <div className={classes.drawerHeader} />
           <Divider />
           <List>
+            <ListItem button key="home" component={Link} to="/">
+              <ListItemText primary="Home" />
+            </ListItem>
+            <Divider />
             {["Lesson 1", "Lesson 2", "Lesson 3", "Lesson 4"].map(
               (text, index) => {
                 return (

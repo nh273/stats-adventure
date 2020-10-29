@@ -6,7 +6,6 @@ class Home extends Component {
     return (
       <React.Fragment>
         <Navbar />
-
         <div>Hello World</div>
       </React.Fragment>
     );
