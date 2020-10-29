@@ -15,7 +15,7 @@ export const Navbar = (props) => {
     setDrawerOpen(open);
   };
 
-  const NavTo = ["/lesson-1", "lesson-2", "lesson-3", "lesson-4"];
+  const NavTo = ["lesson-1", "lesson-2", "lesson-3", "lesson-4"];
 
   return (
     <React.Fragment>
