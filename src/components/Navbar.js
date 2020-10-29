@@ -82,7 +82,7 @@ export const Navbar = (props) => {
           <div className={classes.drawerHeader} />
           <Divider />
           <List>
-            <ListItem button key="home" component={Link} to="/">
+            <ListItem button onClick={(e) => handleListItemClick(e, 4)}>
               <ListItemText primary="Home" />
             </ListItem>
             <Divider />
