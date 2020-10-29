@@ -21,7 +21,7 @@ const styles = (theme) => ({
     marginTop: theme.spacing(3),
   },
   markdown: {
-    padding: `${theme.spacing(3)}px 0`,
+    padding: `${theme.spacing(3)}px`,
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -38,8 +38,10 @@ const LessonLayout = (props) => {
       <Navbar />
       <div className={classes.layout}>
         <Grid container className={classes.mainGrid}>
-          <Grid item xs={12} md={8} className={classes.markdown}>
-            <Paper elevation={1}>{props.children}</Paper>
+          <Grid item xs={12} md={8}>
+            <Paper elevation={1} className={classes.markdown}>
+              {props.children}
+            </Paper>
           </Grid>
         </Grid>
       </div>
