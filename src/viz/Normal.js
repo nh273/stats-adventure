@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
+
+const svgWidth = 600;
 const dodger = (radius) => {
   const radius2 = radius ** 2;
   const bisect = d3.bisector((d) => d.x);
@@ -26,7 +28,7 @@ const dodger = (radius) => {
 function pachinko(random, extent, height = 200) {
   console.log("chink");
   const n = 1000;
-  const width = 800;
+  const width = svgWidth;
   const radius = 2;
   const dodge = dodger(radius * 2 + 1);
   const margin = { top: 0, right: 30, bottom: 20, left: 30 };
@@ -69,7 +71,7 @@ class Normal extends Component {
   }
   createBarChart() {
     console.log("create");
-    pachinko(Math.random);
+    pachinko(d3.randomNormal(0, 1));
   }
 
   render() {
@@ -77,7 +79,7 @@ class Normal extends Component {
       <svg
         id="normal"
         ref={(node) => (this.node = node)}
-        width={200}
+        width={svgWidth}
         height={200}
       ></svg>
     );
