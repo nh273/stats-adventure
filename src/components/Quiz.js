@@ -84,6 +84,13 @@ class Quiz extends React.Component {
     });
   }
 
+  handleSubmit() {
+    var dbref = this.props.dbref;
+    var newSubmissionRef = dbref.push();
+    console.log(newSubmissionRef);
+    newSubmissionRef.set(this.state.answers);
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -101,6 +108,7 @@ class Quiz extends React.Component {
                 size="large"
                 className={classes.button}
                 startIcon={<CloudUploadIcon />}
+                onClick={() => this.handleSubmit()}
               >
                 Submit
               </Button>

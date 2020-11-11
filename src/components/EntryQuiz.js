@@ -1,5 +1,6 @@
 import React from "react";
 import Quiz from "./Quiz";
+import { db } from "../Firebase/firebase";
 
 const entryQuiz = [
   {
@@ -57,7 +58,8 @@ const entryQuiz = [
 
 class EntryQuiz extends React.Component {
   render() {
-    return <Quiz questions={entryQuiz} />;
+    const dbref = db.ref("entry-attitude-quiz");
+    return <Quiz questions={entryQuiz} dbref={dbref} />;
   }
 }
 
