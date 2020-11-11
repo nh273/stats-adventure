@@ -87,8 +87,13 @@ class Quiz extends React.Component {
   handleSubmit() {
     var dbref = this.props.dbref;
     var newSubmissionRef = dbref.push();
-    console.log(newSubmissionRef);
-    newSubmissionRef.set(this.state.answers);
+    newSubmissionRef.set(this.state.answers, function (error) {
+      if (error) {
+        alert(`There had been an error ${error}`);
+      } else {
+        alert("Quiz submitted successfully");
+      }
+    });
   }
 
   render() {
