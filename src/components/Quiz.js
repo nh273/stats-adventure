@@ -5,9 +5,9 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   layout: {
     width: "auto",
     marginLeft: theme.spacing(3),
@@ -26,17 +26,20 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-}));
+});
 
 const Question = (props) => {
-  const classes = useStyles();
   return (
     <Card>
       <CardContent>{props.questionContent}</CardContent>
       <CardActions>
         <ButtonGroup color="primary" aria-label="outlined primary button group">
           {props.questionChoices.map((choice) => {
-            return <Button>{choice}</Button>;
+            return (
+              <Button onClick={(e) => props.onClick(props.qid, choice)}>
+                {choice}
+              </Button>
+            );
           })}
         </ButtonGroup>
       </CardActions>
@@ -44,20 +47,42 @@ const Question = (props) => {
   );
 };
 
-export const Quiz = (props) => {
-  const classes = useStyles();
-  return (
-    <React.Fragment>
-      <div className={classes.layout}>
-        {props.questions.map((q) => {
-          return (
-            <Question
-              questionContent={q.questionContent}
-              questionChoices={q.questionChoices}
-            />
-          );
-        })}
-      </div>
-    </React.Fragment>
-  );
-};
+class Quiz extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      submitted: false,
+      answers: this.props.questions.map((q) => ({ qid: q.qid, value: null })),
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(qid, value) {
+    this.setState((state) => {
+      return {
+        answers: state.answers.map((q) => {
+          if (q.qid === qid) {
+            return { ...q, value: value };
+          }
+          return q;
+        }),
+      };
+    });
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <React.Fragment>
+        <div className={classes.layout}>
+          {this.props.questions.map((q) => {
+            return <Question {...q} onClick={this.handleClick} />;
+          })}
+        </div>
+      </React.Fragment>
+    );
+  }
+}
+
+export default withStyles(styles)(Quiz);

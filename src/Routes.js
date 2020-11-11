@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import { Lesson1 } from "./components/Lesson1";
 import { Lesson2 } from "./components/Lesson2";
 import { Lesson3 } from "./components/Lesson3";
-import { EntryQuiz } from "./components/EntryQuiz";
+import EntryQuiz from "./components/EntryQuiz";
 
 export default (props) => (
   <HashRouter>
