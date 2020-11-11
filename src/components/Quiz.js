@@ -4,6 +4,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -26,12 +27,25 @@ const styles = (theme) => ({
       margin: theme.spacing(1),
     },
   },
+  controls: {
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
 });
 
 const Question = (props) => {
   return (
     <Card>
-      <CardContent>{props.questionContent}</CardContent>
+      <CardContent>
+        <Typography variant="title" gutterBottom>
+          {props.questionContent}
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          {props.value ? "Saved ✅" : ""}
+        </Typography>
+      </CardContent>
       <CardActions>
         <ButtonGroup color="primary" aria-label="outlined primary button group">
           {props.questionChoices.map((choice) => {
@@ -52,7 +66,7 @@ class Quiz extends React.Component {
     super(props);
     this.state = {
       submitted: false,
-      answers: this.props.questions.map((q) => ({ qid: q.qid, value: null })),
+      answers: this.props.questions.map((q) => ({ ...q, value: null })),
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -76,9 +90,22 @@ class Quiz extends React.Component {
     return (
       <React.Fragment>
         <div className={classes.layout}>
-          {this.props.questions.map((q) => {
+          {this.state.answers.map((q) => {
             return <Question {...q} onClick={this.handleClick} />;
           })}
+          <Card className={classes.controls}>
+            <CardActions>
+              <Button
+                variant="contained"
+                color="default"
+                size="large"
+                className={classes.button}
+                startIcon={<CloudUploadIcon />}
+              >
+                Submit
+              </Button>
+            </CardActions>
+          </Card>
         </div>
       </React.Fragment>
     );
