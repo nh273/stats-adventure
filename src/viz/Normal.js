@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import Grid from "@material-ui/core/Grid";
+import Slider from "@material-ui/core/Slider";
+import Typography from "@material-ui/core/Typography";
 import * as d3 from "d3";
 
 const svgWidth = 600;
@@ -26,7 +29,6 @@ const dodger = (radius) => {
 };
 
 function pachinko(random, extent, height = 200) {
-  console.log("chink");
   const n = 1000;
   const width = svgWidth;
   const radius = 2;
@@ -37,6 +39,9 @@ function pachinko(random, extent, height = 200) {
   const x = d3.scaleLinear(extent, [margin.left, width - margin.right]).nice();
 
   const svg = d3.select("#normal");
+
+  svg.selectAll("circle").remove();
+  svg.selectAll("g").remove();
 
   svg
     .append("g")
@@ -61,7 +66,10 @@ function pachinko(random, extent, height = 200) {
 class Normal extends Component {
   constructor(props) {
     super(props);
-    this.createBarChart = this.createBarChart.bind(this);
+    this.state = {
+      mean: 0,
+      sd: 1,
+    };
   }
   componentDidMount() {
     this.createBarChart();
@@ -69,19 +77,42 @@ class Normal extends Component {
   componentDidUpdate() {
     this.createBarChart();
   }
-  createBarChart() {
-    console.log("create");
-    pachinko(d3.randomNormal(0, 1));
-  }
+  createBarChart = () => {
+    pachinko(d3.randomNormal(this.state.mean, this.state.sd));
+  };
+  handleMeanChange = (event, newValue) => {
+    this.setState({ mean: newValue });
+  };
+
+  handleSdChange = (event, newValue) => {
+    this.setState({ sd: newValue });
+  };
 
   render() {
     return (
-      <svg
-        id="normal"
-        ref={(node) => (this.node = node)}
-        width={svgWidth}
-        height={200}
-      ></svg>
+      <div className="normal-illustration">
+        <svg id="normal" width={svgWidth} height={200}></svg>
+        <Typography id="continuous-slider" gutterBottom>
+          Mean
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs>
+            <Slider
+              value={this.state.mean}
+              onChange={this.handleMeanChange}
+              aria-labelledby="continuous-slider"
+            />
+          </Grid>
+        </Grid>
+        <Typography id="disabled-slider" gutterBottom>
+          Standard Deviation
+        </Typography>
+        <Slider
+          value={this.state.sd}
+          onChange={this.handleSdChange}
+          aria-labelledby="continuous-slider"
+        />
+      </div>
     );
   }
 }
