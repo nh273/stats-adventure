@@ -10,32 +10,34 @@ const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 const markers = [
-  { markerOffset: -15, name: "La Paz", coordinates: [-68.1193, -16.4897] },
-  { markerOffset: 25, name: "Brasilia", coordinates: [-47.8825, -15.7942] },
-  { markerOffset: 25, name: "Santiago", coordinates: [-70.6693, -33.4489] },
-  { markerOffset: 25, name: "Bogota", coordinates: [-74.0721, 4.711] },
-  { markerOffset: 25, name: "Quito", coordinates: [-78.4678, -0.1807] },
-  { markerOffset: -15, name: "Georgetown", coordinates: [-58.1551, 6.8013] },
-  { markerOffset: -15, name: "Asuncion", coordinates: [-57.5759, -25.2637] },
-  { markerOffset: 25, name: "Paramaribo", coordinates: [-55.2038, 5.852] },
-  { markerOffset: 25, name: "Montevideo", coordinates: [-56.1645, -34.9011] },
-  { markerOffset: -15, name: "Caracas", coordinates: [-66.9036, 10.4806] },
-  { markerOffset: -15, name: "Lima", coordinates: [-77.0428, -12.0464] },
+  { markerOffset: -15, name: "Italy", coordinates: [12.5, 41.9] },
+  { markerOffset: 25, name: "England", coordinates: [0.13, 51.5] },
+  { markerOffset: 25, name: "Kenya", coordinates: [36.8, 1.29] },
+  { markerOffset: 25, name: "East Coast US", coordinates: [-74.0721, 40.7] },
+  { markerOffset: 25, name: "Russia", coordinates: [37.6, 55.8] },
+  { markerOffset: -15, name: "South Africa", coordinates: [18.4, -33.9] },
+  { markerOffset: -15, name: "China", coordinates: [114.3, 30.6] },
+  { markerOffset: 25, name: "Indonesia", coordinates: [106.8, 6.2] },
+  { markerOffset: 25, name: "Australia", coordinates: [151.2, -33.9] },
+  { markerOffset: -15, name: "Venezuela", coordinates: [-66.9036, 10.4806] },
+  { markerOffset: -15, name: "Brazil", coordinates: [-46.6, -23.6] },
 ];
 
 export const MapChart = () => {
   return (
-    <ComposableMap projection="geoMercator">
+    <ComposableMap projection="geoMercator" projectionConfig={{ scale: 150 }}>
       <Geographies geography={geoUrl}>
         {({ geographies }) =>
-          geographies.map((geo) => (
-            <Geography
-              key={geo.rsmKey}
-              geography={geo}
-              fill="#EAEAEC"
-              stroke="#D6D6DA"
-            />
-          ))
+          geographies
+            .filter((d) => d.properties.REGION_UN !== "Antarctica")
+            .map((geo) => (
+              <Geography
+                key={geo.rsmKey}
+                geography={geo}
+                fill="#EAEAEC"
+                stroke="#D6D6DA"
+              />
+            ))
         }
       </Geographies>
       {markers.map(({ name, coordinates, markerOffset }) => (
