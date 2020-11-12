@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
 import * as d3 from "d3";
 
 const svgWidth = 600;
@@ -63,6 +64,12 @@ function pachinko(random, extent, height = 200) {
   return svg.node();
 }
 
+const styles = (theme) => ({
+  root: {
+    width: 300,
+  },
+});
+
 class Normal extends Component {
   constructor(props) {
     super(props);
@@ -89,32 +96,35 @@ class Normal extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <div className="normal-illustration">
         <svg id="normal" width={svgWidth} height={200}></svg>
-        <Typography id="continuous-slider" gutterBottom>
-          Mean
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs>
+        <div className={classes.control}>
+          <Card>
+            <Typography id="continuous-slider" gutterBottom>
+              Mean
+            </Typography>
             <Slider
               value={this.state.mean}
               onChange={this.handleMeanChange}
               aria-labelledby="continuous-slider"
+              valueLabelDisplay="on"
             />
-          </Grid>
-        </Grid>
-        <Typography id="disabled-slider" gutterBottom>
-          Standard Deviation
-        </Typography>
-        <Slider
-          value={this.state.sd}
-          onChange={this.handleSdChange}
-          aria-labelledby="continuous-slider"
-        />
+            <Typography id="disabled-slider" gutterBottom>
+              Standard Deviation
+            </Typography>
+            <Slider
+              value={this.state.sd}
+              onChange={this.handleSdChange}
+              aria-labelledby="continuous-slider"
+              valueLabelDisplay="on"
+            />
+          </Card>
+        </div>
       </div>
     );
   }
 }
 
-export default Normal;
+export default withStyles(styles)(Normal);
