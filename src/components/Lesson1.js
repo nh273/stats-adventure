@@ -1,6 +1,7 @@
 import React from "react";
 import LessonLayout from "./Lessons";
 import Normal from "../viz/Normal";
+import { MapChart } from "../viz/WorldMap";
 import Typography from "@material-ui/core/Typography";
 
 export const Lesson1 = (props) => {
@@ -27,6 +28,9 @@ export const Lesson1 = (props) => {
         say about the true hospitalization rates of this disease? Fortunately,
         Statistics can help!
       </Typography>
+      <div className="map-chart-area">
+        <MapChart />
+      </div>
       <Normal data={[1, 3, 4, 5]} size={[50, 50]} />
       Then some more random text here
     </LessonLayout>
