@@ -86,6 +86,10 @@ export const Navbar = (props) => {
               <ListItemText primary="Home" />
             </ListItem>
             <Divider />
+            <ListItem button component={Link} to="/entry-quiz">
+              <ListItemText primary="Test Yourself!" />
+            </ListItem>
+            <Divider />
             {["Lesson 1", "Lesson 2", "Lesson 3", "Lesson 4"].map(
               (text, index) => {
                 return (

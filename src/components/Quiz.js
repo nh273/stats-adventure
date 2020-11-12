@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import { Navbar } from "./Navbar";
 
 const styles = (theme) => ({
   layout: {
@@ -101,6 +102,7 @@ class Quiz extends React.Component {
 
     return (
       <React.Fragment>
+        <Navbar />
         <div className={classes.layout}>
           {this.state.answers.map((q) => {
             return <Question {...q} onClick={this.handleClick} />;
