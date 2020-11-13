@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -62,8 +63,13 @@ function pachinko(random) {
 }
 
 const styles = (theme) => ({
-  root: {
+  control: {
+    height: 50,
     width: 300,
+    paddingTop: 25,
+    paddingLeft: 5,
+    paddingRight: 5,
+    justifyContent: "center",
   },
 });
 
@@ -107,28 +113,36 @@ class Normal extends Component {
     return (
       <div className="normal-illustration">
         <svg id="normal" width={svgWidth} height={200}></svg>
-        <div className={classes.control}>
-          <Card>
-            <Typography id="continuous-slider" gutterBottom>
+        <Card>
+          <CardContent>
+            <Typography id="continuous-slider" variant="body2" gutterBottom>
               Mean
             </Typography>
-            <Slider
-              value={this.state.mean}
-              onChange={this.handleMeanChange}
-              aria-labelledby="continuous-slider"
-              valueLabelDisplay="on"
-            />
-            <Typography id="disabled-slider" gutterBottom>
+            <div className={classes.control}>
+              <Slider
+                value={this.state.mean}
+                onChange={this.handleMeanChange}
+                aria-labelledby="continuous-slider"
+                valueLabelDisplay="auto"
+                max={5}
+                min={-5}
+              />
+            </div>
+            <Typography id="disabled-slider" variant="body2" gutterBottom>
               Standard Deviation
             </Typography>
-            <Slider
-              value={this.state.sd}
-              onChange={this.handleSdChange}
-              aria-labelledby="continuous-slider"
-              valueLabelDisplay="on"
-            />
-          </Card>
-        </div>
+            <div className={classes.control}>
+              <Slider
+                value={this.state.sd}
+                onChange={this.handleSdChange}
+                aria-labelledby="continuous-slider"
+                valueLabelDisplay="auto"
+                min={0}
+                max={5}
+              />
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }
