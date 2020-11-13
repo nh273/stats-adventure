@@ -40,6 +40,7 @@ class Boxplot extends Component {
   setupChart = () => {
     const svg = d3.select("#boxplot");
     const sumstat = sumStat(worldHospRates);
+    console.log(sumstat);
     svg
       .append("g")
       .attr("transform", "translate(0," + height + ")")
@@ -74,7 +75,8 @@ class Boxplot extends Component {
       .attr("y2", height / 2 - boxHeight / 2)
       .attr("x1", (d) => xScale(sumstat.median))
       .attr("x2", (d) => xScale(sumstat.median))
-      .attr("stroke", "black");
+      .attr("stroke", "red")
+      .attr("stroke-width", 3);
 
     // create a tooltip
     const tooltip = d3
