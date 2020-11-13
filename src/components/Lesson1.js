@@ -1,7 +1,9 @@
 import React from "react";
+import LazyLoad from "react-lazyload";
 import LessonLayout from "./Lessons";
 import Normal from "../viz/Normal";
 import { MapChart } from "../viz/WorldMap";
+import growth from "../assets/images/growth.PNG";
 import Typography from "@material-ui/core/Typography";
 
 export const Lesson1 = (props) => {
@@ -22,6 +24,16 @@ export const Lesson1 = (props) => {
         problem for hospitals. How many hospital beds must be prepared for it?
         Your country's Ministry of Health wants to know.
       </Typography>
+      <LazyLoad>
+        <img
+          src={growth}
+          alt="Illustration of speed of spread of the disease"
+          className="responsive"
+        />
+        <Typography variant="caption" gutterBottom>
+          The new disease spreads extremely quickly
+        </Typography>
+      </LazyLoad>
       <Typography variant="body1" gutterBottom>
         Since the disease is new, we don't know much about it. We have the
         hospitalization rates reported by 20 different countries. What can we
