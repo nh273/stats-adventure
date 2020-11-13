@@ -82,14 +82,14 @@ class Normal extends Component {
     };
   }
   componentDidMount() {
-    this.setupBarChart();
-    this.createBarChart();
+    this.setupChart();
+    this.createChart();
   }
   componentDidUpdate() {
-    this.createBarChart();
+    this.createChart();
   }
 
-  setupBarChart = () => {
+  setupChart = () => {
     const svg = d3.select("#normal");
     svg.selectAll("g").remove();
     svg
@@ -97,7 +97,7 @@ class Normal extends Component {
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(xScale));
   };
-  createBarChart = () => {
+  createChart = () => {
     pachinko(d3.randomNormal(this.state.mean, this.state.sd));
   };
   handleMeanChange = (event, newValue) => {
