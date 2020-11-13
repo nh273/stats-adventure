@@ -46,7 +46,7 @@ export const MapChart = () => {
             y={markerOffset}
             style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
           >
-            {name}
+            {`${name}: ${Math.round(rates * 10000) / 100}%`}
           </text>
         </Marker>
       ))}

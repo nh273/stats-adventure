@@ -1,24 +1,24 @@
 export const worldHospRates = [
-  { markerOffset: -15, name: "Italy", coordinates: [12.5, 41.9], rates: 0.05 },
+  { markerOffset: -15, name: "Italy", coordinates: [12.5, 41.9], rates: 0.058 },
   {
     markerOffset: -25,
     name: "England",
     coordinates: [0.13, 51.5],
-    rates: 0.05,
+    rates: 0.044,
   },
   { markerOffset: 25, name: "Kenya", coordinates: [36.8, 1.29], rates: 0.041 },
   {
     markerOffset: 25,
     name: "East Coast US",
     coordinates: [-74.0721, 40.7],
-    rates: 0.05,
+    rates: 0.038,
   },
   { markerOffset: 25, name: "Russia", coordinates: [37.6, 55.8], rates: 0.023 },
   {
     markerOffset: -15,
     name: "South Africa",
     coordinates: [18.4, -33.9],
-    rates: 0.05,
+    rates: 0.054,
   },
   { markerOffset: -15, name: "China", coordinates: [114.3, 30.6], rates: 0.12 },
   {
@@ -92,7 +92,7 @@ export const worldHospRates = [
     markerOffset: 25,
     name: "Ecuador",
     coordinates: [-78.5, 0.18],
-    rates: 0.04,
+    rates: 0.041,
   },
   { markerOffset: -15, name: "Qatar", coordinates: [51.5, 25.3], rates: 0.051 },
 ];
