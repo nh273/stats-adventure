@@ -6,6 +6,9 @@ import { withStyles } from "@material-ui/core/styles";
 import * as d3 from "d3";
 
 const svgWidth = 600;
+const height = 200;
+const margin = { top: 0, right: 30, bottom: 20, left: 30 };
+
 const dodger = (radius) => {
   const radius2 = radius ** 2;
   const bisect = d3.bisector((d) => d.x);
@@ -29,28 +32,22 @@ const dodger = (radius) => {
   };
 };
 
-function pachinko(random, extent, height = 200) {
+const xScale = d3
+  .scaleLinear([-5, 5], [margin.left, svgWidth - margin.right])
+  .nice();
+
+function pachinko(random) {
   const n = 1000;
-  const width = svgWidth;
   const radius = 2;
   const dodge = dodger(radius * 2 + 1);
-  const margin = { top: 0, right: 30, bottom: 20, left: 30 };
   const values = Float64Array.from({ length: n }, random);
-  if (extent === undefined) extent = d3.extent(values);
-  const x = d3.scaleLinear(extent, [margin.left, width - margin.right]).nice();
 
   const svg = d3.select("#normal");
 
   svg.selectAll("circle").remove();
-  svg.selectAll("g").remove();
-
-  svg
-    .append("g")
-    .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x));
 
   for (let i = 0; i < n; ++i) {
-    const cx = x(values[i]);
+    const cx = xScale(values[i]);
     const cy = height - margin.bottom - dodge(cx) - radius - 1;
     if (cy < margin.top) break;
     svg
@@ -79,11 +76,21 @@ class Normal extends Component {
     };
   }
   componentDidMount() {
+    this.setupBarChart();
     this.createBarChart();
   }
   componentDidUpdate() {
     this.createBarChart();
   }
+
+  setupBarChart = () => {
+    const svg = d3.select("#normal");
+    svg.selectAll("g").remove();
+    svg
+      .append("g")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
+      .call(d3.axisBottom(xScale));
+  };
   createBarChart = () => {
     pachinko(d3.randomNormal(this.state.mean, this.state.sd));
   };
