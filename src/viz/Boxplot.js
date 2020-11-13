@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
+import { worldHospRates } from "../assets/data/data";
 
 // set the dimensions and margins of the graph
-var margin = { top: 10, right: 30, bottom: 50, left: 70 },
-  width = 460 - margin.left - margin.right,
-  height = 400 - margin.top - margin.bottom;
+var margin = { top: 50, right: 100, bottom: 50, left: 100 },
+  width = 800 - margin.left - margin.right,
+  height = 200 - margin.top - margin.bottom;
 
 const sumStat = (data) => {
   const q1 = d3.quantile(data.map((d) => d.rates).sort(d3.ascending), 0.25);
@@ -22,3 +23,104 @@ const sumStat = (data) => {
     max: max,
   };
 };
+
+var xScale = d3.scaleLinear().domain([0, 0.15]).range([0, width]);
+
+const colorScale = d3
+  .scaleSequential()
+  .interpolator(d3.interpolateInferno)
+  .domain([0.01, 0.15]);
+class Boxplot extends Component {
+  componentDidMount() {
+    this.setupChart();
+  }
+  componentDidUpdate() {
+    this.setupChart();
+  }
+  setupChart = () => {
+    const svg = d3.select("#boxplot");
+    const sumstat = sumStat(worldHospRates);
+    svg
+      .append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(xScale).ticks(5));
+
+    // Show the main horizontal line
+    svg
+      .append("line")
+      .attr("x1", (d) => xScale(sumstat.min))
+      .attr("x2", (d) => xScale(sumstat.max))
+      .attr("y1", height / 2)
+      .attr("y2", height / 2)
+      .attr("stroke", "black")
+      .style("width", 40);
+
+    // rectangle for the main box
+    const boxHeight = 90;
+    svg
+      .append("rect")
+      .attr("x", xScale(sumstat.q1))
+      .attr("width", (d) => xScale(sumstat.q3) - xScale(sumstat.q1))
+      .attr("y", height / 2 - boxHeight / 2)
+      .attr("height", boxHeight)
+      .attr("stroke", "black")
+      .style("fill", "#69b3a2")
+      .style("opacity", 0.3);
+
+    // Show the median
+    svg
+      .append("line")
+      .attr("y1", height / 2)
+      .attr("y2", height / 2 - boxHeight / 2)
+      .attr("x1", (d) => xScale(sumstat.median))
+      .attr("x2", (d) => xScale(sumstat.median))
+      .attr("stroke", "black");
+
+    // create a tooltip
+    const tooltip = d3
+      .select(".box-plot-area")
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+      .style("font-size", "16px");
+    var mouseover = (e) => {
+      const d = e.target.__data__;
+      tooltip.transition().duration(200).style("opacity", 1);
+      tooltip
+        .html(`<span style='color:grey'>${d.name}: ${d.rates}</span>`)
+        .style("left", xScale(d.rates) + 30 + "px")
+        .style("top", height / 2 - 30 + "px");
+    };
+
+    var mouseleave = (d) => {
+      tooltip.transition().duration(200).style("opacity", 0);
+    };
+
+    // add circles
+    const jitterWidth = 20;
+    svg
+      .selectAll("circle")
+      .data(worldHospRates)
+      .enter()
+      .append("circle")
+      .attr("cx", function (d) {
+        return xScale(d.rates);
+      })
+      .attr("cy", function (d) {
+        return height / 2 - jitterWidth / 2 + Math.random() * jitterWidth;
+      })
+      .attr("r", 10)
+      .style("fill", function (d) {
+        return colorScale(+d.rates);
+      })
+      .attr("stroke", "white")
+      .on("mouseover", mouseover)
+      .on("mouseleave", mouseleave);
+  };
+
+  render() {
+    return <svg id="boxplot" width={width} height={height}></svg>;
+  }
+}
+
+export default Boxplot;

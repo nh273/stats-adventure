@@ -11,7 +11,7 @@ import { worldHospRates } from "../assets/data/data";
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-var colorScale = d3
+const colorScale = d3
   .scaleSequential()
   .interpolator(d3.interpolateInferno)
   .domain([0.01, 0.15]);

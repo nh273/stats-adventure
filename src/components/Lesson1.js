@@ -3,6 +3,7 @@ import LazyLoad from "react-lazyload";
 import LessonLayout from "./Lessons";
 import Normal from "../viz/Normal";
 import { MapChart } from "../viz/WorldMap";
+import Boxplot from "../viz/Boxplot";
 import growth from "../assets/images/growth.PNG";
 import Typography from "@material-ui/core/Typography";
 
@@ -42,6 +43,9 @@ export const Lesson1 = (props) => {
       </Typography>
       <div className="map-chart-area">
         <MapChart />
+      </div>
+      <div className="box-plot-area">
+        <Boxplot />
       </div>
       <Normal data={[1, 3, 4, 5]} size={[50, 50]} />
       Then some more random text here
