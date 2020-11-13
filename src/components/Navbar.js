@@ -49,7 +49,7 @@ export const Navbar = (props) => {
   };
 
   const history = useHistory();
-  const NavTo = ["lesson-1", "lesson-2", "lesson-3", "lesson-4"];
+  const NavTo = ["lesson-1", "lesson-2", "lesson-3"];
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const handleListItemClick = (_, index) => {
     setSelectedIndex(index);
@@ -90,20 +90,18 @@ export const Navbar = (props) => {
               <ListItemText primary="Test Yourself!" />
             </ListItem>
             <Divider />
-            {["Lesson 1", "Lesson 2", "Lesson 3", "Lesson 4"].map(
-              (text, index) => {
-                return (
-                  <ListItem
-                    button
-                    key={index}
-                    selected={selectedIndex === { index }}
-                    onClick={(e) => handleListItemClick(e, index)}
-                  >
-                    <ListItemText primary={text} />
-                  </ListItem>
-                );
-              }
-            )}
+            {["Lesson 1", "Lesson 2", "Lesson 3"].map((text, index) => {
+              return (
+                <ListItem
+                  button
+                  key={index}
+                  selected={selectedIndex === { index }}
+                  onClick={(e) => handleListItemClick(e, index)}
+                >
+                  <ListItemText primary={text} />
+                </ListItem>
+              );
+            })}
           </List>
         </div>
       </Drawer>
