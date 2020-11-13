@@ -21,15 +21,15 @@ const markers = [
   { markerOffset: -25, name: "Australia", coordinates: [151.2, -33.9] },
   { markerOffset: -15, name: "Venezuela", coordinates: [-66.9036, 10.4806] },
   { markerOffset: -15, name: "Brazil", coordinates: [-46.6, -23.6] },
-  { markerOffset: -15, name: "Argentina", coordinates: [-58.4, -34.6] },
+  { markerOffset: 25, name: "Argentina", coordinates: [-58.4, -34.6] },
   { markerOffset: -15, name: "Nigeria", coordinates: [3.38, 6.52] },
-  { markerOffset: -15, name: "Lebanon", coordinates: [35 / 5, 33.9] },
+  { markerOffset: 25, name: "Lebanon", coordinates: [35 / 5, 33.9] },
   { markerOffset: -15, name: "India", coordinates: [77.2, 28.6] },
   { markerOffset: -15, name: "Japan", coordinates: [139.7, 35.7] },
   { markerOffset: -15, name: "Mexico", coordinates: [99.1, 19.4] },
   { markerOffset: -15, name: "West Coast US", coordinates: [-118.2, 34.1] },
   { markerOffset: -15, name: "Canada", coordinates: [-123.1, 49.3] },
-  { markerOffset: -15, name: "Ecuador", coordinates: [-78.5, 0.18] },
+  { markerOffset: 25, name: "Ecuador", coordinates: [-78.5, 0.18] },
   { markerOffset: -15, name: "Qatar", coordinates: [51.5, 25.3] },
 ];
 
