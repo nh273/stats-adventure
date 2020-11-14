@@ -49,7 +49,12 @@ export const Navbar = (props) => {
   };
 
   const history = useHistory();
-  const NavTo = ["lesson-1", "lesson-2", "lesson-3"];
+  const NavTo = [
+    "descriptive-stats",
+    "histogram-distribution",
+    "error-bias",
+    "significance",
+  ];
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const handleListItemClick = (_, index) => {
     setSelectedIndex(index);
@@ -90,7 +95,12 @@ export const Navbar = (props) => {
               <ListItemText primary="Test Yourself!" />
             </ListItem>
             <Divider />
-            {["Lesson 1", "Lesson 2", "Lesson 3"].map((text, index) => {
+            {[
+              "Describing data and uncertainty",
+              "Distributions",
+              "An introduction to errors and biases",
+              "Statistical Significance",
+            ].map((text, index) => {
               return (
                 <ListItem
                   button
