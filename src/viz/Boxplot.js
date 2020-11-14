@@ -5,7 +5,8 @@ import { worldHospRates } from "../assets/data/data";
 // set the dimensions and margins of the graph
 var margin = { top: 50, right: 100, bottom: 50, left: 100 },
   width = 800 - margin.left - margin.right,
-  height = 200 - margin.top - margin.bottom;
+  height = 300 - margin.top - margin.bottom,
+  padding = { left: 10 };
 
 const sumStat = (data) => {
   const q1 = d3.quantile(data.map((d) => d.rates).sort(d3.ascending), 0.25);
@@ -24,7 +25,7 @@ const sumStat = (data) => {
   };
 };
 
-var xScale = d3.scaleLinear().domain([0, 0.15]).range([0, width]);
+var xScale = d3.scaleLinear().domain([0, 0.15]).range([padding.left, width]);
 
 const colorScale = d3
   .scaleSequential()
@@ -43,8 +44,11 @@ class Boxplot extends Component {
     console.log(sumstat);
     svg
       .append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(xScale).ticks(5));
+      .attr(
+        "transform",
+        `translate(${padding.left},${height - margin.bottom / 2})`
+      )
+      .call(d3.axisBottom(xScale).ticks(10));
 
     // Show the main horizontal line
     svg
