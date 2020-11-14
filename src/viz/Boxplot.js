@@ -15,6 +15,7 @@ const sumStat = (data) => {
   const interQuantileRange = q3 - q1;
   const min = q1 - 1.5 * interQuantileRange;
   const max = q3 + 1.5 * interQuantileRange;
+  const mean = d3.mean(data.map((d) => d.rates));
   return {
     q1: q1,
     median: median,
@@ -22,6 +23,7 @@ const sumStat = (data) => {
     interQuantileRange: interQuantileRange,
     min: min,
     max: max,
+    mean: mean,
   };
 };
 
@@ -81,6 +83,17 @@ class Boxplot extends Component {
       .attr("x2", (d) => xScale(sumstat.median))
       .attr("stroke", "red")
       .attr("stroke-width", 3);
+
+    // Show the mean
+    svg
+      .append("line")
+      .attr("y1", height / 2)
+      .attr("y2", height / 2 - boxHeight / 2)
+      .attr("x1", (d) => xScale(sumstat.mean))
+      .attr("x2", (d) => xScale(sumstat.mean))
+      .attr("stroke", "orange")
+      .attr("stroke-width", 3)
+      .attr("stroke-dasharray", 4);
 
     // create a tooltip
     const tooltip = d3
