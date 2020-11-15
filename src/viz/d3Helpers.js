@@ -23,13 +23,11 @@ export const dodger = (radius) => {
   };
 };
 
-export const pachinko = (random, xScale, height, margin) => {
+export const pachinko = (random, svg, xScale, height, margin) => {
   const n = 1000;
   const radius = 2;
   const dodge = dodger(radius * 2 + 1);
   const values = Float64Array.from({ length: n }, random);
-
-  const svg = d3.select("#normal");
 
   svg.selectAll("circle").remove();
 
@@ -37,12 +35,7 @@ export const pachinko = (random, xScale, height, margin) => {
     const cx = xScale(values[i]);
     const cy = height - margin.bottom - dodge(cx) - radius - 1;
     if (cy < margin.top) break;
-    svg
-      .append("circle")
-      .attr("cx", cx)
-      .attr("cy", -400)
-      .attr("r", radius)
-      .attr("cy", cy);
+    svg.append("circle").attr("cx", cx).attr("r", radius).attr("cy", cy);
   }
 
   return svg.node();

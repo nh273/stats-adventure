@@ -1,7 +1,6 @@
 import React from "react";
 import LazyLoad from "react-lazyload";
 import LessonLayout from "./Lessons";
-import Normal from "../viz/Normal";
 import { MapChart } from "../viz/WorldMap";
 import Boxplot from "../viz/Boxplot";
 import growth from "../assets/images/growth.PNG";
@@ -92,8 +91,6 @@ export const Lesson1 = (props) => {
         IQR. Data points outside the whiskers are generally considered
         "outliers" by convention.
       </Typography>
-      <Normal data={[1, 3, 4, 5]} size={[50, 50]} />
-      Then some more random text here
     </LessonLayout>
   );
 };

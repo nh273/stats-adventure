@@ -12,7 +12,7 @@ const height = 200;
 const margin = { top: 0, right: 30, bottom: 20, left: 30 };
 
 const xScale = d3
-  .scaleLinear([-5, 5], [margin.left, svgWidth - margin.right])
+  .scaleLinear([0, 5], [margin.left, svgWidth - margin.right])
   .nice();
 
 const styles = (theme) => ({
@@ -26,12 +26,11 @@ const styles = (theme) => ({
   },
 });
 
-class Normal extends Component {
+class Exponential extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mean: 0,
-      sd: 1,
+      lambda: 0 + Number.EPSILON,
     };
   }
   componentDidMount() {
@@ -43,7 +42,7 @@ class Normal extends Component {
   }
 
   setupChart = () => {
-    const svg = d3.select("#normal");
+    const svg = d3.select("#exp");
     svg.selectAll("g").remove();
     svg
       .append("g")
@@ -51,56 +50,38 @@ class Normal extends Component {
       .call(d3.axisBottom(xScale));
   };
   createChart = () => {
-    const svg = d3.select("#normal");
+    const svg = d3.select("#exp");
     pachinko(
-      d3.randomNormal(this.state.mean, this.state.sd),
+      d3.randomExponential(this.state.lambda + Number.EPSILON),
       svg,
       xScale,
       height,
       margin
     );
   };
-  handleMeanChange = (event, newValue) => {
-    this.setState({ mean: newValue });
-  };
-
-  handleSdChange = (event, newValue) => {
-    this.setState({ sd: newValue });
+  handleLambdaChange = (event, newValue) => {
+    this.setState({ lambda: newValue });
   };
 
   render() {
     const { classes } = this.props;
     return (
-      <div className="normal-illustration">
-        <svg id="normal" width={svgWidth} height={200}></svg>
+      <div className="exp-illustration">
+        <svg id="exp" width={svgWidth} height={200}></svg>
         <Card>
           <CardContent>
             <Typography id="continuous-slider" variant="body2" gutterBottom>
-              Mean
+              Lambda
             </Typography>
             <div className={classes.control}>
               <Slider
-                value={this.state.mean}
-                onChange={this.handleMeanChange}
+                value={this.state.lambda}
+                onChange={this.handleLambdaChange}
                 aria-labelledby="continuous-slider"
                 valueLabelDisplay="auto"
                 max={5}
-                min={-5}
-                step={0.3}
-              />
-            </div>
-            <Typography id="disabled-slider" variant="body2" gutterBottom>
-              Standard Deviation
-            </Typography>
-            <div className={classes.control}>
-              <Slider
-                value={this.state.sd}
-                onChange={this.handleSdChange}
-                aria-labelledby="continuous-slider"
-                valueLabelDisplay="auto"
                 min={0}
-                max={5}
-                step={0.3}
+                step={0.1}
               />
             </div>
           </CardContent>
@@ -110,4 +91,4 @@ class Normal extends Component {
   }
 }
 
-export default withStyles(styles)(Normal);
+export default withStyles(styles)(Exponential);
