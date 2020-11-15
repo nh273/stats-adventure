@@ -35,7 +35,7 @@ export default class ErrorSankey extends React.Component {
         margin={50}
         nodes={data.nodes}
         links={data.links}
-        width={960}
+        width={700}
         align={"center"}
         height={500}
         layout={24}
