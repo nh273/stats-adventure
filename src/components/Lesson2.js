@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 export const Lesson2 = (props) => {
   return (
     <LessonLayout>
-      {" "}
       <Typography variant="h2" gutterBottom>
         Describing data with Histogram and Distributions
       </Typography>
