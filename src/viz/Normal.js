@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -17,11 +15,12 @@ const xScale = d3
 
 const styles = (theme) => ({
   control: {
-    height: 50,
-    width: 300,
+    height: 80,
+    width: 500,
     paddingTop: 25,
-    paddingLeft: 5,
+    paddingLeft: 50,
     paddingRight: 5,
+    paddingBottom: 25,
     justifyContent: "center",
   },
 });
@@ -38,7 +37,17 @@ class Normal extends Component {
     this.setupChart();
     this.createChart();
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    const dataStep = this.props.dataStep;
+    const stepProgress = this.props.stepProgress;
+    if (
+      prevProps.dataStep !== dataStep ||
+      prevProps.stepProgress !== stepProgress
+    ) {
+      if (dataStep === 2) {
+        this.setState({ mean: stepProgress * -5 });
+      }
+    }
     this.createChart();
   }
 
@@ -73,38 +82,36 @@ class Normal extends Component {
     return (
       <div className="normal-illustration">
         <svg id="normal" width={svgWidth} height={200}></svg>
-        <Card>
-          <CardContent>
-            <Typography id="continuous-slider" variant="body2" gutterBottom>
-              Mean
-            </Typography>
-            <div className={classes.control}>
-              <Slider
-                value={this.state.mean}
-                onChange={this.handleMeanChange}
-                aria-labelledby="continuous-slider"
-                valueLabelDisplay="auto"
-                max={5}
-                min={-5}
-                step={0.3}
-              />
-            </div>
-            <Typography id="disabled-slider" variant="body2" gutterBottom>
-              Standard Deviation
-            </Typography>
-            <div className={classes.control}>
-              <Slider
-                value={this.state.sd}
-                onChange={this.handleSdChange}
-                aria-labelledby="continuous-slider"
-                valueLabelDisplay="auto"
-                min={0}
-                max={5}
-                step={0.3}
-              />
-            </div>
-          </CardContent>
-        </Card>
+
+        <div className={classes.control}>
+          <Typography variant="body2" gutterBottom>
+            Mean
+          </Typography>
+          <Slider
+            value={this.state.mean}
+            onChange={this.handleMeanChange}
+            aria-labelledby="continuous-slider"
+            valueLabelDisplay="auto"
+            max={5}
+            min={-5}
+            step={0.3}
+          />
+        </div>
+
+        <div className={classes.control}>
+          <Typography variant="body2" gutterBottom>
+            Standard Deviation
+          </Typography>
+          <Slider
+            value={this.state.sd}
+            onChange={this.handleSdChange}
+            aria-labelledby="continuous-slider"
+            valueLabelDisplay="auto"
+            min={0}
+            max={5}
+            step={0.3}
+          />
+        </div>
       </div>
     );
   }
