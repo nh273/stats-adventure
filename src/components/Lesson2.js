@@ -7,7 +7,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
-const stepStyle = { position: "relative", zIndex: 5, paddingBottom: 500 };
+const stepStyle = { position: "relative", zIndex: 5, paddingBottom: 250 };
 const chartStyle = { position: "sticky", top: 200, zIndex: 1 };
 
 const StepContent = (props) => {
@@ -29,8 +29,7 @@ export const Lesson2 = (props) => {
     setCurrentStep(data);
   };
   const onStepProgress = ({ data, progress }) => {
-    console.log(`progress! ${(data, progress)}`);
-    if (data === 2) {
+    if (data === 2 || data === 3) {
       setCurrentProgress(progress);
     }
   };
@@ -52,6 +51,7 @@ export const Lesson2 = (props) => {
         <Scrollama
           onStepEnter={onStepEnter}
           onStepProgress={onStepProgress}
+          offset={0.5}
           progress
           debug
         >
@@ -77,6 +77,19 @@ export const Lesson2 = (props) => {
                 There are 2 additional things that can affect how a normal
                 distribution looks. First, where its mean is.
               </StepContent>
+              <StepContent>
+                As you can see, this is quite straightforward. The shape of the
+                data is unchanged, but its center shifts. So winter temperatures
+                in Paris might have a mean of -3 (in degrees Celsius).
+              </StepContent>
+            </div>
+          </Step>
+
+          <Step data={3}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                While height of men in meter might have a mean of +1.75
+              </StepContent>
             </div>
           </Step>
         </Scrollama>
@@ -87,7 +100,7 @@ export const Lesson2 = (props) => {
           <Exponential />
         </div>
 
-        <Scrollama onStepEnter={onStepEnter} debug>
+        <Scrollama onStepEnter={onStepEnter} offset={0.5} debug>
           <Step data={1}>
             <div className="step" style={stepStyle}>
               <Typography variant="body1" gutterBottom>

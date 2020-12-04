@@ -35,8 +35,8 @@ class Normal extends Component {
   }
   componentDidMount() {
     this.setupChart();
-    this.createChart();
   }
+
   componentDidUpdate(prevProps) {
     const dataStep = this.props.dataStep;
     const stepProgress = this.props.stepProgress;
@@ -44,8 +44,12 @@ class Normal extends Component {
       prevProps.dataStep !== dataStep ||
       prevProps.stepProgress !== stepProgress
     ) {
-      if (dataStep === 2) {
-        this.setState({ mean: stepProgress * -5 });
+      if (dataStep === 1) {
+        this.createChart();
+      } else if (dataStep === 2) {
+        this.setState({ mean: stepProgress * -3 });
+      } else if (dataStep === 3) {
+        this.setState({ mean: stepProgress * 4.75 - 3 });
       }
     }
     this.createChart();
