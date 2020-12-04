@@ -7,7 +7,12 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
-const stepStyle = { position: "relative", zIndex: 5, paddingBottom: 300 };
+const stepStyle = {
+  position: "relative",
+  zIndex: 5,
+  paddingBottom: 300,
+  opacity: 0.9,
+};
 const chartStyle = { position: "sticky", top: 200, zIndex: 1 };
 
 const StepContent = (props) => {
@@ -61,12 +66,28 @@ export const Lesson2 = (props) => {
                 A distribution is simply a way to describe a certain shape of
                 data. You might remember the <em>Normal Distribution</em>, or
                 the bell-curve. If the data "follows a normal distribution", it
-                simply means that it has this shape. The shape tells us that a
-                lot of the data will be around the middle, and much fewer data
-                points will be at either extremes. Of course it's not quite as
-                simple as that, since there are other distributions that look
-                kinda similar but have slightly different specific features. But
-                we can simplify things that way for now.
+                simply means that it has this shape.
+              </StepContent>
+            </div>
+          </Step>
+
+          <Step data={1.1}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                The shape tells us that a lot of the data will be around the
+                middle,
+              </StepContent>
+            </div>
+          </Step>
+
+          <Step data={1.2}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                and much fewer data points will be at either extremes. Of course
+                it's not quite as simple as that, since there are other
+                distributions that look kinda similar but have slightly
+                different specific features. But we can simplify things that way
+                for now.
               </StepContent>
             </div>
           </Step>

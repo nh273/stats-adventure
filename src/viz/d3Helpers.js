@@ -32,10 +32,16 @@ export const pachinko = (random, svg, xScale, height, margin) => {
   svg.selectAll("circle").remove();
 
   for (let i = 0; i < n; ++i) {
-    const cx = xScale(values[i]);
+    const val = values[i];
+    const cx = xScale(val);
     const cy = height - margin.bottom - dodge(cx) - radius - 1;
     if (cy < margin.top) break;
-    svg.append("circle").attr("cx", cx).attr("r", radius).attr("cy", cy);
+    svg
+      .append("circle")
+      .attr("cx", cx)
+      .attr("cy", cy)
+      .attr("r", radius)
+      .attr("class", val < 1.5 && val > -1.5 ? "circle-center" : "circle-edge");
   }
 
   return svg.node();

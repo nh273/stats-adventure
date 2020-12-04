@@ -46,14 +46,41 @@ class Normal extends Component {
     ) {
       if (dataStep === 1) {
         this.createChart();
+      } else if (dataStep === 1.1) {
+        this.highlightCenter();
+      } else if (dataStep === 1.2) {
+        this.unhighlightCenter();
+        this.highlightEdge();
       } else if (dataStep === 2) {
+        this.unhighlightEdge();
         this.setState({ mean: stepProgress * -3 });
+        this.createChart();
       } else if (dataStep === 3) {
         this.setState({ mean: stepProgress * 4.75 - 3 });
+        this.createChart();
       }
     }
-    this.createChart();
   }
+
+  highlightEdge = () => {
+    const svg = d3.select("#normal");
+    svg.selectAll(".circle-edge").attr("fill", "red");
+  };
+
+  highlightCenter = () => {
+    const svg = d3.select("#normal");
+    svg.selectAll(".circle-center").attr("fill", "red");
+  };
+
+  unhighlightEdge = () => {
+    const svg = d3.select("#normal");
+    svg.selectAll(".circle-edge").attr("fill", "black");
+  };
+
+  unhighlightCenter = () => {
+    const svg = d3.select("#normal");
+    svg.selectAll(".circle-center").attr("fill", "black");
+  };
 
   setupChart = () => {
     const svg = d3.select("#normal");
@@ -73,6 +100,7 @@ class Normal extends Component {
       margin
     );
   };
+
   handleMeanChange = (event, newValue) => {
     this.setState({ mean: newValue });
   };
