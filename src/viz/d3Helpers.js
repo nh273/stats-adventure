@@ -23,7 +23,7 @@ export const dodger = (radius) => {
   };
 };
 
-export const pachinko = (random, svg, xScale, height, margin) => {
+export const pachinko = (random, svg, xScale, height, margin, extreme) => {
   const n = 1000;
   const radius = 2;
   const dodge = dodger(radius * 2 + 1);
@@ -41,7 +41,7 @@ export const pachinko = (random, svg, xScale, height, margin) => {
       .attr("cx", cx)
       .attr("cy", cy)
       .attr("r", radius)
-      .attr("class", val < 1.5 && val > -1.5 ? "circle-center" : "circle-edge");
+      .attr("class", extreme(val));
   }
 
   return svg.node();
