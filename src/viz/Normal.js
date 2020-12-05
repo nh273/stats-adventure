@@ -60,12 +60,27 @@ class Normal extends Component {
         this.highlightEdge();
       } else if (dataStep === 2) {
         this.unhighlightEdge();
-        // Starts at 15 and ends up at 10, "shorter stay" cases
+        // Starts at 15 and ends up at 10, "shorter stay" case
         this.setState({ mean: stepProgress * -5 + initialMean });
         this.createChart();
       } else if (dataStep === 3) {
-        // Starts at 10 and ends up at 24, "longer stay" cases
+        // Starts at 10 and ends up at 24, "longer stay" case
         this.setState({ mean: stepProgress * 14 + 10 });
+        this.createChart();
+      } else if (dataStep === 5) {
+        // high variable case, ends at 6
+        this.setState({ sd: stepProgress * 3 + initialSd });
+        this.createChart();
+      } else if (dataStep === 6) {
+        // high variable case, starts at 6 ends at 1
+        this.setState({ sd: stepProgress * -5 + 6 });
+        this.createChart();
+      } else if (dataStep === 8) {
+        // mean starts at 24 and ends at 17, sd starts at 1 and ends at 3.5
+        this.setState({
+          mean: stepProgress * -7 + 24,
+          sd: stepProgress * 2.5 + initialSd,
+        });
         this.createChart();
       }
     }
@@ -158,7 +173,7 @@ class Normal extends Component {
             valueLabelDisplay="auto"
             min={0}
             max={10}
-            step={1}
+            step={0.5}
           />
         </div>
       </div>

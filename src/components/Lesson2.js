@@ -32,7 +32,7 @@ export const Lesson2 = (props) => {
   const [currentStepExp, setCurrentStepExp] = useState(null);
   const [currentProgress, setCurrentProgress] = useState(null);
   const [currentProgressExp, setCurrentProgressExp] = useState(null);
-  const stepsWithProgress = [2, 3];
+  const stepsWithProgress = [2, 3, 5, 6, 8];
   const onStepEnter = ({ data }) => {
     if (data < 20) {
       setCurrentStep(data);
@@ -65,7 +65,7 @@ export const Lesson2 = (props) => {
         <Scrollama
           onStepEnter={onStepEnter}
           onStepProgress={onStepProgress}
-          offset={0.5}
+          offset={0.6}
           progress
         >
           <Step data={1}>
