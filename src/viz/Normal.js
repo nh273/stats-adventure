@@ -8,9 +8,14 @@ import { pachinko } from "./d3Helpers";
 const svgWidth = 600;
 const height = 200;
 const margin = { top: 0, right: 30, bottom: 20, left: 30 };
+const xAxisStart = 10;
+const xAxisEnd = 30;
 
 const xScale = d3
-  .scaleLinear([-5, 5], [margin.left, svgWidth - margin.right])
+  .scaleLinear(
+    [xAxisStart - 10, xAxisEnd + 10],
+    [margin.left, svgWidth - margin.right]
+  )
   .nice();
 
 const styles = (theme) => ({
@@ -25,12 +30,14 @@ const styles = (theme) => ({
   },
 });
 
+const initialMean = 15;
+const initialSd = 3;
 class Normal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mean: 0,
-      sd: 1,
+      mean: initialMean,
+      sd: initialSd,
     };
   }
   componentDidMount() {
@@ -44,7 +51,7 @@ class Normal extends Component {
       prevProps.dataStep !== dataStep ||
       prevProps.stepProgress !== stepProgress
     ) {
-      if (dataStep === 1) {
+      if (prevProps.dataStep !== dataStep && dataStep === 1) {
         this.createChart();
       } else if (dataStep === 1.1) {
         this.highlightCenter();
@@ -53,10 +60,12 @@ class Normal extends Component {
         this.highlightEdge();
       } else if (dataStep === 2) {
         this.unhighlightEdge();
-        this.setState({ mean: stepProgress * -3 });
+        // Starts at 15 and ends up at 10, "shorter stay" cases
+        this.setState({ mean: stepProgress * -5 + initialMean });
         this.createChart();
       } else if (dataStep === 3) {
-        this.setState({ mean: stepProgress * 4.75 - 3 });
+        // Starts at 10 and ends up at 24, "longer stay" cases
+        this.setState({ mean: stepProgress * 14 + 10 });
         this.createChart();
       }
     }
@@ -90,14 +99,22 @@ class Normal extends Component {
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(xScale));
   };
+
   createChart = () => {
     const svg = d3.select("#normal");
+
     pachinko(
       d3.randomNormal(this.state.mean, this.state.sd),
       svg,
       xScale,
       height,
-      margin
+      margin,
+      (val) => {
+        return val > initialMean - 1.5 * initialSd &&
+          val < initialMean + 1.5 * initialSd
+          ? "circle-center"
+          : "circle-edge";
+      }
     );
   };
 
@@ -124,9 +141,9 @@ class Normal extends Component {
             onChange={this.handleMeanChange}
             aria-labelledby="continuous-slider"
             valueLabelDisplay="auto"
-            max={5}
-            min={-5}
-            step={0.3}
+            min={xAxisStart}
+            max={xAxisEnd}
+            step={1}
           />
         </div>
 
@@ -140,8 +157,8 @@ class Normal extends Component {
             aria-labelledby="continuous-slider"
             valueLabelDisplay="auto"
             min={0}
-            max={5}
-            step={0.3}
+            max={10}
+            step={1}
           />
         </div>
       </div>

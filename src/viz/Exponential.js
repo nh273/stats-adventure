@@ -56,7 +56,10 @@ class Exponential extends Component {
       svg,
       xScale,
       height,
-      margin
+      margin,
+      (val) => {
+        return val > 11 && val < 19 ? "circle-center" : "circle-edge";
+      }
     );
   };
   handleLambdaChange = (event, newValue) => {
