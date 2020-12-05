@@ -45,13 +45,6 @@ class Home extends Component {
                   Statistics is increasingly controlling our daily lives.
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                  We evolved to coexist in small groups of around a hundred
-                  people. Can you imagine in your head a million people, let
-                  alone a billion, or seven? And can your - or anyone's - mind
-                  fathom the diverse behaviors of the multitude of people in
-                  your average large corporation, city, or country?
-                </Typography>
-                <Typography variant="body1" gutterBottom>
                   Even if you are not aware of it, your boss and your
                   politicians are using Statistics to justify decisions that
                   will directly or indirectly affect your life. Believing in
