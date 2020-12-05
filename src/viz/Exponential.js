@@ -30,16 +30,66 @@ class Exponential extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lambda: 0 + Number.EPSILON,
+      lambda: 1 + Number.EPSILON,
     };
   }
   componentDidMount() {
     this.setupChart();
-    this.createChart();
   }
-  componentDidUpdate() {
-    this.createChart();
+  componentDidUpdate(prevProps) {
+    const dataStep = this.props.dataStep;
+    const stepProgress = this.props.stepProgress;
+    if (
+      prevProps.dataStep !== dataStep ||
+      prevProps.stepProgress !== stepProgress
+    ) {
+      if (prevProps.dataStep !== dataStep && dataStep === 21) {
+        this.createChart();
+      } else if (dataStep === 22) {
+        this.highlightCenter();
+      } else if (dataStep === 23) {
+        this.unhighlightCenter();
+        this.highlightEdge();
+      } else if (dataStep === 25) {
+        // Make sure to set stepsWithProgress in Lesson 2 accordingly!
+        this.unhighlightEdge();
+        // stop redrawing halfway through the progress to give time for graphic to "pause"
+        if (stepProgress < 0.5) {
+          // Starts at 1 and ends up at 0.5 * (-1.5) + 1 = 0.25, "infrequent" case
+          this.setState({
+            lambda: stepProgress * -1.5 + 1,
+          });
+          this.createChart();
+        }
+      } else if (dataStep === 26) {
+        // Starts at 0.25 and ends up at 2, "frequent" case
+        this.setState({ lambda: stepProgress * 1.75 + 0.25 });
+        this.createChart();
+      }
+    } else if (!this.props.controlled) {
+      this.createChart();
+    }
   }
+
+  highlightEdge = () => {
+    const svg = d3.select("#exp");
+    svg.selectAll(".circle-edge").attr("fill", "red");
+  };
+
+  highlightCenter = () => {
+    const svg = d3.select("#exp");
+    svg.selectAll(".circle-center").attr("fill", "red");
+  };
+
+  unhighlightEdge = () => {
+    const svg = d3.select("#exp");
+    svg.selectAll(".circle-edge").attr("fill", "black");
+  };
+
+  unhighlightCenter = () => {
+    const svg = d3.select("#exp");
+    svg.selectAll(".circle-center").attr("fill", "black");
+  };
 
   setupChart = () => {
     const svg = d3.select("#exp");
@@ -58,10 +108,15 @@ class Exponential extends Component {
       height,
       margin,
       (val) => {
-        return val > 11 && val < 19 ? "circle-center" : "circle-edge";
+        if (val < 1) {
+          return "circle-center";
+        } else if (val > 2.5) {
+          return "circle-edge";
+        }
       }
     );
   };
+
   handleLambdaChange = (event, newValue) => {
     this.setState({ lambda: newValue });
   };

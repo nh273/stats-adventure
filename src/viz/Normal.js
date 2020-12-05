@@ -83,6 +83,8 @@ class Normal extends Component {
         });
         this.createChart();
       }
+    } else if (!this.props.controlled) {
+      this.createChart();
     }
   }
 
