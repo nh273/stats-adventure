@@ -289,6 +289,20 @@ export const Lesson2 = (props) => {
           </Step>
         </Scrollama>
       </div>
+
+      <Typography variant="body1" gutterBottom>
+        So to summarize, distributions describes data. Different distributions
+        <em>approximate</em> data with different properties. For each
+        distribution, you can usual change one or several <em>parameters</em> to
+        fit your particular situation.
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        One way that distributions are especially useful is in simulations. Once
+        you are fairly certain that patients arrive at your hospital according
+        to an exponential distribution, and their durations of stay fit a normal
+        distribution, you can simulate many days of patient arrivals and stays
+        and be fairly confident that they will be realistic.
+      </Typography>
     </LessonLayout>
   );
 };
