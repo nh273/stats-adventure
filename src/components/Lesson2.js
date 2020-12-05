@@ -29,11 +29,12 @@ const StepContent = (props) => {
 
 export const Lesson2 = (props) => {
   const [control, setControl] = useState(false);
+  const [controlExp, setControlExp] = useState(false);
   const [currentStep, setCurrentStep] = useState(null);
   const [currentStepExp, setCurrentStepExp] = useState(null);
   const [currentProgress, setCurrentProgress] = useState(null);
   const [currentProgressExp, setCurrentProgressExp] = useState(null);
-  const stepsWithProgress = [2, 3, 5, 6, 8];
+  const stepsWithProgress = [2, 3, 5, 6, 8, 25, 26];
   const onStepEnter = ({ data }) => {
     if (data === 1) {
       // assume control
@@ -41,6 +42,9 @@ export const Lesson2 = (props) => {
       setCurrentStep(data);
     } else if (data < 20) {
       setCurrentStep(data);
+    } else if (data === 21) {
+      setControlExp(true);
+      setCurrentStepExp(data);
     } else {
       setCurrentStepExp(data);
     }
@@ -212,14 +216,15 @@ export const Lesson2 = (props) => {
         <div className="sticky" style={chartStyle}>
           <Exponential
             dataStep={currentStepExp}
-            currentProgress={currentProgressExp}
+            stepProgress={currentProgressExp}
+            controlled={controlExp}
           />
         </div>
 
         <Scrollama
           onStepEnter={onStepEnter}
           onStepProgress={onStepProgress}
-          offset={0.5}
+          offset={0.6}
           progress
         >
           <Step data={21}>
@@ -235,8 +240,9 @@ export const Lesson2 = (props) => {
             <div className="step" style={stepStyle}>
               <StepContent>
                 Here, it models the time (in hours) between patients arriving at
-                a hospital with the new disease. Most of the time, you have to
-                wait about 3 hours to see a new patient arriving.
+                a hospital with the new disease. Let's say on average 1 patients
+                will arrive per hour. Most of the time, you have to wait less
+                than 1 hour to see a new patient arriving.
               </StepContent>
             </div>
           </Step>
@@ -245,9 +251,39 @@ export const Lesson2 = (props) => {
             <div className="step" style={stepStyle}>
               <StepContent>
                 But just by chance, sometimes, you will wait much longer before
-                seeing a new patient. And of course, sometimes you will wait
-                less than 3 minutes. But it's highly improbably to patients
-                constantly arriving.
+                seeing a new patient.
+              </StepContent>
+            </div>
+          </Step>
+
+          <Step data={24}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                If you are a different hospital, it's likely that your
+                distribution won't change, because the <em>nature</em> of your
+                data is not changing: patients still arrive in the same random
+                way, and your wait time still behaves the same. Yet your{" "}
+                <em>parameter</em> will change
+              </StepContent>
+            </div>
+          </Step>
+
+          <Step data={25}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                Lambda is the mean number of patients arriving each hour. At a
+                hospital in the middle of nowhere, with small lambda, you might
+                equally expect long intervals between patients as short
+                intervals.
+              </StepContent>
+            </div>
+          </Step>
+
+          <Step data={26}>
+            <div className="step" style={stepStyle}>
+              <StepContent style={{ marginBottom: 300 }}>
+                But at busy hospitals with high lambdas, short intervals are
+                more and more likely. Long intervals are more and more rare.
               </StepContent>
             </div>
           </Step>
