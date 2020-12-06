@@ -20,7 +20,7 @@
     "react-simple-maps": "^2.3.0",
     "react-vis": "^1.11.7",
     "rebase": "^0.3.0",
-    "victory": "^35.3.0"
+    "victory": "^35.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
