@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import LessonLayout from "./Lessons";
 import Typography from "@material-ui/core/Typography";
+import { Scrollama, Step } from "react-scrollama";
 import ErrorSankey from "../viz/Sankey";
 
 export const Lesson3 = (props) => {
