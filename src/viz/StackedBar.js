@@ -4,6 +4,7 @@ import {
   VictoryAxis,
   VictoryBar,
   VictoryLabel,
+  VictoryLegend,
   VictoryStack,
 } from "victory";
 
@@ -63,7 +64,17 @@ export const StackedBar = (props) => {
         }}
       />
       <VictoryAxis style={transparentStyle} dependentAxis />
-
+      {props.currentStep > 0 ? (
+        <VictoryLegend
+          x={120}
+          y={20}
+          style={{ labels: { fontSize: 8 } }}
+          data={[
+            { name: "Death", symbol: { fill: "tomato", type: "square" } },
+            { name: "Survival", symbol: { fill: "79C7E3", type: "square" } },
+          ]}
+        />
+      ) : null}
       <VictoryStack
         style={{
           data: { width: 20 },
