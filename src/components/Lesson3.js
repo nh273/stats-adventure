@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Scrollama, Step } from "react-scrollama";
 import { db } from "../Firebase/firebase";
 import LessonLayout from "./Lessons";
-import ErrorSankey, { DumbSankey, DumbSankeyNeg } from "../viz/Sankey";
+import { ErrorSankey, DumbSankey, DumbSankeyNeg } from "../viz/Sankey";
 import { stepStyle, chartStyle, StepContent } from "./Steps";
 
 const useStyles = makeStyles({
@@ -120,9 +120,13 @@ export const Lesson3 = (props) => {
         first time. Smartass.)
       </Typography>
       <ErrorSurvey id="error-survey-reguess" />
-      <Typography variant="body1" gutterBottom>
-        The actual probability is 0.38
-      </Typography>
+      <details>
+        <summary style={{ padding: 10 }}>Click to reveal the answer</summary>
+        <Typography variant="body1" gutterBottom>
+          The actual probability is 0.38
+        </Typography>
+      </details>
+
       <Typography variant="body1" gutterBottom>
         Let me repeat: even if you tested positive <span>➕</span> for this new
         disease, using a test that can detect the disease 99% of the time if
@@ -133,15 +137,17 @@ export const Lesson3 = (props) => {
       <Typography variant="body1" gutterBottom>
         Most people overestimate this probability. Let's look at why.
       </Typography>
+
       <div className="sticky" style={{ ...chartStyle, top: 0 }}>
-        <ErrorSankey />
+        <ErrorSankey currentStep={currentStep} />
       </div>
       <Scrollama onStepEnter={onStepEnter} offset={0.6}>
         <Step data={1}>
           <div className="step" style={stepStyle}>
             <StepContent>
-              To make that clearer, let's very briefly (promise) look at another
-              distribution: The Exponential distribution.
+              The key here is the piece of information on how rare this new
+              disease is. If you randomly select 100 persons, only 3 would have
+              the disease.
             </StepContent>
           </div>
         </Step>
@@ -149,23 +155,39 @@ export const Lesson3 = (props) => {
         <Step data={2}>
           <div className="step" style={stepStyle}>
             <StepContent>
-              Here, it models the time (in hours) between patients arriving at a
-              hospital with the new disease. Let's say on average 1 patients
-              will arrive per hour. Most of the time, you have to wait less than
-              1 hour to see a new patient arriving.
+              Even with our 99% accuracy, which in this situation we can take to
+              mean that we detected all 3 infected persons successfully, overall
+              you would still have only 3 people infected and positive.
             </StepContent>
           </div>
         </Step>
 
         <Step data={3}>
           <div className="step" style={stepStyle}>
+            <StepContent>
+              At 5% false positive, there will be about 5 people who are not
+              infected, but their tests are wrongly positive.
+            </StepContent>
+          </div>
+        </Step>
+
+        <Step data={4}>
+          <div className="step" style={stepStyle}>
             <StepContent style={{ marginBottom: 300 }}>
-              But just by chance, sometimes, you will wait much longer before
-              seeing a new patient.
+              So, you can see that even if you are among the 8 people who tested
+              positive, it is more likely that you are among the 5 who were
+              <span style={{ color: "red" }}> misindentified </span> than the 3
+              who were{" "}
+              <span style={{ color: "green" }}> correctly identified </span>.
             </StepContent>
           </div>
         </Step>
       </Scrollama>
+
+      <Typography variant="body1" gutterBottom>
+        Hopefully, you have seen now how our intuition can mislead us, and how a
+        basic understanding of Statistics can help us clarify things.
+      </Typography>
     </LessonLayout>
   );
 };
