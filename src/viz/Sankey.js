@@ -3,14 +3,17 @@ import { Sankey } from "react-vis";
 
 const data = {
   nodes: [
-    { name: "Probability of actually catching disease: 3%" },
     {
-      name:
-        "Probability of test detecting disease correctly (true positive): 90%",
+      // Chance of actually catching disease: 3%
     },
     {
-      name:
-        "Probability of test incorrectly detecting disease on uninfected person (false positive): 1%",
+      // Chance of test detecting disease correctly (true positive): 90%
+      name: "Infected",
+    },
+    {
+      // Chance of test incorrectly detecting disease on uninfected person
+      // (false positive): 1%
+      name: "Not infected",
     },
     { name: "Infected and positive" },
     { name: "Infected and wrongly negative" },
@@ -35,18 +38,18 @@ export default class ErrorSankey extends React.Component {
         margin={50}
         nodes={data.nodes}
         links={data.links}
-        width={700}
+        width={600}
         align={"center"}
-        height={500}
+        height={800}
         layout={24}
         nodeWidth={15}
-        nodePadding={10}
+        nodePadding={50}
         style={{
           links: {
             opacity: 0.3,
           },
           labels: {
-            fontSize: "8px",
+            fontSize: "12px",
           },
           rects: {
             strokeWidth: 2,
