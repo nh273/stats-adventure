@@ -28,7 +28,7 @@ export const Lesson4 = (props) => {
           <StackedBar currentStep={currentStep} />
         </div>
         <Scrollama onStepEnter={onStepEnter} offset={0.6}>
-          <Step data={0}>
+          <Step data={1}>
             <div className="step" style={stepStyle}>
               <StepContent>
                 The key here is the piece of information on how rare this new
@@ -38,7 +38,7 @@ export const Lesson4 = (props) => {
             </div>
           </Step>
 
-          <Step data={1}>
+          <Step data={2}>
             <div className="step" style={stepStyle}>
               <StepContent>
                 Even with our 99% accuracy, which in this situation we can take
