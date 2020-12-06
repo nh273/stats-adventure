@@ -32,6 +32,9 @@ const styles = (theme) => ({
     alignItems: "center",
     padding: theme.spacing(2),
   },
+  button: {
+    textTransform: "none",
+  },
 });
 
 const LessonLayout = (props) => {
@@ -53,6 +56,7 @@ const LessonLayout = (props) => {
                   component={Link}
                   to={props.backLink}
                   variant="contained"
+                  className={classes.button}
                 >
                   <Typography variant="body1">{props.backText}</Typography>
                 </Button>
@@ -66,6 +70,7 @@ const LessonLayout = (props) => {
                     component={Link}
                     to={props.fwdLink}
                     variant="contained"
+                    className={classes.button}
                   >
                     <Typography variant="body1">{props.fwdText}</Typography>
                   </Button>
