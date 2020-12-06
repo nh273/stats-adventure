@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Navbar } from "./Navbar";
+import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import { Navbar } from "./Navbar";
+import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
   layout: {
@@ -22,6 +24,11 @@ const styles = (theme) => ({
   },
   markdown: {
     padding: `${theme.spacing(3)}px`,
+    lineHeight: "150%",
+  },
+  button: {
+    margin: theme.spacing(1),
+    textTransform: "none",
   },
 });
 class Home extends Component {
@@ -36,36 +43,49 @@ class Home extends Component {
           <Grid container className={classes.mainGrid}>
             <Grid item xs={12} md={8}>
               <Paper elevation={1} className={classes.markdown}>
-                <Typography variant="body1" gutterBottom>
-                  If you think that Statistics is not necessary to your life,
-                  then you have been mistaken. Of course, Statistics is the
-                  foundation for natural science, social science, and
-                  engineering. Without it, modern society as we know would not
-                  exist. But even if you do not work in science and engineering,
-                  Statistics is increasingly controlling our daily lives.
+                <Typography variant="h6">
+                  Your boss and your politicians are using Statistics to justify
+                  decisions that will directly or indirectly affect your life.
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                  Even if you are not aware of it, your boss and your
-                  politicians are using Statistics to justify decisions that
-                  will directly or indirectly affect your life. Believing in
-                  climate change, increasing or reducing taxes, hiring or firing
-                  people..., all of these have Statistics playing a part. That
-                  is simply an inevitable fact in today's society, whose scale
-                  has long grown beyond our intuition's grasp.
+                  Believing in climate change, increasing or reducing taxes,
+                  hiring or firing people..., all of these have Statistics
+                  playing a part. That is simply an inevitable fact in today's
+                  society.
                 </Typography>
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="h6">
                   Thus it is extremely important that you, too, understand
-                  Statistics. At least you need to understand it enough to not
-                  be intimidated by it. I believe that Statistics is difficult
-                  but not incomprehensible to the majority of people. This guide
-                  will take you through some of the most basic concepts in
-                  Statistics. There will be no Maths, and the goal is just for
-                  you to understand these concepts when you come across them in
-                  an argument.
+                  Statistics
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                  Let's begin!
+                  At least enough to not be intimidated by it. We are going on
+                  an adventure, using some basic concepts in Statistics to
+                  overcome a real-world challenge. There will be no Maths, and
+                  the goal is for you to recognize these concepts when you come
+                  across them in an argument.
                 </Typography>
+                <Button
+                  component={Link}
+                  to="/entry-quiz"
+                  variant="contained"
+                  className={classes.button}
+                  color="primary"
+                  autoFocus
+                >
+                  <Typography variant="body1">
+                    Begin with an optional survey
+                  </Typography>
+                </Button>
+                <Button
+                  component={Link}
+                  to="/descriptive-stats"
+                  variant="contained"
+                  className={classes.button}
+                >
+                  <Typography variant="body1">
+                    Begin with the first adventure!
+                  </Typography>
+                </Button>
               </Paper>
             </Grid>
           </Grid>
