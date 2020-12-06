@@ -3,29 +3,8 @@ import { Scrollama, Step } from "react-scrollama";
 import LessonLayout from "./Lessons";
 import Normal from "../viz/Normal";
 import Exponential from "../viz/Exponential";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-
-const stepStyle = {
-  position: "relative",
-  zIndex: 5,
-  paddingBottom: 300,
-  opacity: 0.9,
-};
-const chartStyle = { position: "sticky", top: 200, zIndex: 1 };
-
-const StepContent = (props) => {
-  return (
-    <Card {...props}>
-      <CardContent>
-        <Typography variant="body1" gutterBottom>
-          {props.children}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-};
+import { stepStyle, chartStyle, StepContent } from "./Steps";
 
 export const Lesson2 = (props) => {
   const [control, setControl] = useState(false);
