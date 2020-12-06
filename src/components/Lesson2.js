@@ -63,7 +63,12 @@ export const Lesson2 = (props) => {
     }
   };
   return (
-    <LessonLayout>
+    <LessonLayout
+      backLink="/descriptive-stats"
+      backText="Describing Data"
+      fwdLink="/error-bias"
+      fwdText="Errors and Biases"
+    >
       <Typography variant="h2" gutterBottom>
         Describing data with Histogram and Distributions
       </Typography>
