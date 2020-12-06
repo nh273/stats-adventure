@@ -69,8 +69,8 @@ const data = {
   ],
 };
 
-const BLURRED_LINK_OPACITY = 0.3;
-const FOCUSED_LINK_OPACITY = 0.6;
+const BLURRED_LINK_OPACITY = 0.2;
+const FOCUSED_LINK_OPACITY = 0.8;
 
 export default class ErrorSankey extends React.Component {
   constructor(props) {
@@ -99,7 +99,8 @@ export default class ErrorSankey extends React.Component {
       <div>
         <Sankey
           animation
-          margin={50}
+          margin={{ left: 50, right: 50, top: 50, bottom: 50 }}
+          padding={50}
           nodes={data.nodes.filter((n) => n.step <= this.state.currentStep)}
           links={data.links
             .filter((l) => l.step <= this.state.currentStep)
@@ -111,8 +112,8 @@ export default class ErrorSankey extends React.Component {
                   : BLURRED_LINK_OPACITY,
             }))}
           hasVoronoi={false}
-          onLinkMouseOver={(node) => this.setState({ activeLink: node })}
-          onLinkMouseOut={() => this.setState({ activeLink: null })}
+          // onLinkMouseOver={(node) => this.setState({ activeLink: node })}
+          // onLinkMouseOut={() => this.setState({ activeLink: null })}
           width={600}
           align={"center"}
           height={800}
@@ -131,8 +132,9 @@ export default class ErrorSankey extends React.Component {
               stroke: "#1A3177",
             },
           }}
-        />
-        {activeLink && this._renderHint()}
+        >
+          {activeLink && this._renderHint()}
+        </Sankey>
       </div>
     );
   }
