@@ -41,28 +41,28 @@ const data = {
     {
       source: 1,
       target: 3,
-      value: 0.9 * 0.03,
+      value: 0.99 * 0.03,
       step: 2,
       explanation: "True Positive",
     },
     {
       source: 1,
       target: 4,
-      value: 0.1 * 0.03,
+      value: 0.01 * 0.03,
       step: 2,
       explanation: "False Negative",
     },
     {
       source: 2,
       target: 5,
-      value: 0.97 * 0.01,
+      value: 0.97 * 0.05,
       step: 3,
       explanation: "False Positive",
     },
     {
       source: 2,
       target: 6,
-      value: 0.97 * 0.99,
+      value: 0.97 * 0.95,
       step: 3,
       explanation: "True Negative",
     },
@@ -80,10 +80,35 @@ export const DumbSankey = (props) => {
       height={200}
       padding={50}
       align={"center"}
-      nodes={[{ name: "Infected" }, { name: "➕" }, { name: "➖" }]}
+      nodes={[
+        { name: "Infected" },
+        { name: "Test is ➕" },
+        { name: "Test is ➖" },
+      ]}
       links={[
-        { source: 0, target: 1, value: 0.9 },
-        { source: 0, target: 2, value: 0.1 },
+        { source: 0, target: 1, value: 0.99 },
+        { source: 0, target: 2, value: 0.01 },
+      ]}
+    />
+  );
+};
+
+export const DumbSankeyNeg = (props) => {
+  return (
+    <Sankey
+      animation
+      width={600}
+      height={200}
+      padding={50}
+      align={"center"}
+      nodes={[
+        { name: "Not Infected" },
+        { name: "Test is ➕" },
+        { name: "Test is ➖" },
+      ]}
+      links={[
+        { source: 0, target: 1, value: 0.05 },
+        { source: 0, target: 2, value: 0.95 },
       ]}
     />
   );
