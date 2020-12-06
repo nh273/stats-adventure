@@ -66,7 +66,7 @@ export const StackedBar = (props) => {
       <VictoryAxis style={transparentStyle} dependentAxis />
       {props.currentStep > 0 ? (
         <VictoryLegend
-          x={120}
+          x={props.currentStep === 2 ? 200 : 120}
           y={20}
           style={{ labels: { fontSize: 8 } }}
           data={[
