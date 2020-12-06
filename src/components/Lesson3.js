@@ -165,7 +165,12 @@ export const Lesson3 = (props) => {
     setCurrentStep(data);
   };
   return (
-    <LessonLayout backLink="/histogram-distribution" backText="Distributions">
+    <LessonLayout
+      backLink="/histogram-distribution"
+      backText="Distributions"
+      fwdLink="/significance"
+      fwdText="Statistical Significance"
+    >
       <Typography variant="h2" gutterBottom>
         An introduction to errors
       </Typography>
