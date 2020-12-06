@@ -54,7 +54,7 @@ const LessonLayout = (props) => {
                   to={props.backLink}
                   variant="contained"
                 >
-                  <Typography>{props.backText}</Typography>
+                  <Typography variant="body1">{props.backText}</Typography>
                 </Button>
               ) : (
                 ""
@@ -67,7 +67,7 @@ const LessonLayout = (props) => {
                     to={props.fwdLink}
                     variant="contained"
                   >
-                    <Typography>{props.fwdText}</Typography>
+                    <Typography variant="body1">{props.fwdText}</Typography>
                   </Button>
                 ) : (
                   ""
