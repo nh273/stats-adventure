@@ -72,6 +72,22 @@ const data = {
 const BLURRED_LINK_OPACITY = 0.2;
 const FOCUSED_LINK_OPACITY = 0.8;
 
+export const DumbSankey = (props) => {
+  return (
+    <Sankey
+      animation
+      width={600}
+      height={200}
+      padding={50}
+      align={"center"}
+      nodes={[{ name: "Infected" }, { name: "➕" }, { name: "➖" }]}
+      links={[
+        { source: 0, target: 1, value: 0.9 },
+        { source: 0, target: 2, value: 0.1 },
+      ]}
+    />
+  );
+};
 export default class ErrorSankey extends React.Component {
   constructor(props) {
     super();
