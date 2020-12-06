@@ -1,4 +1,7 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -23,10 +26,11 @@ const styles = (theme) => ({
   markdown: {
     padding: `${theme.spacing(3)}px`,
   },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    marginTop: theme.spacing(3),
-    padding: `${theme.spacing(3)}px 0`,
+  controls: {
+    display: "flex",
+    alignContent: "space-between",
+    alignItems: "center",
+    padding: theme.spacing(2),
   },
 });
 
@@ -42,6 +46,13 @@ const LessonLayout = (props) => {
             <Paper elevation={1} className={classes.markdown}>
               {props.children}
             </Paper>
+
+            <Card className={classes.controls}>
+              <Button variant="contained">Back</Button>
+              <Grid container justify="flex-end">
+                <Button variant="contained">Forward</Button>
+              </Grid>
+            </Card>
           </Grid>
         </Grid>
       </div>
