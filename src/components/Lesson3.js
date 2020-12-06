@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Scrollama, Step } from "react-scrollama";
 import { db } from "../Firebase/firebase";
 import LessonLayout from "./Lessons";
-import { ErrorSankey, DumbSankey, DumbSankeyNeg } from "../viz/Sankey";
+import {
+  ErrorSankey,
+  DumbSankey,
+  DumbSankeyNeg,
+  ControlledSankey,
+} from "../viz/Sankey";
 import { stepStyle, chartStyle, StepContent } from "./Steps";
 
 const useStyles = makeStyles({
@@ -18,6 +24,15 @@ const useStyles = makeStyles({
     paddingLeft: 50,
     paddingRight: 5,
     paddingBottom: 10,
+    justifyContent: "center",
+  },
+  sankeySlider: {
+    width: 200,
+    height: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 10,
+    paddingRight: 5,
     justifyContent: "center",
   },
 });
@@ -46,7 +61,7 @@ const ErrorSurvey = (props) => {
   };
 
   return (
-    <Card style={{ margin: 50 }}>
+    <Card style={{ margin: 10 }}>
       <form name="error-bias-survey-1" onSubmit={handleSubmit}>
         <div className={classes.slider}>
           <Slider
@@ -61,6 +76,85 @@ const ErrorSurvey = (props) => {
         </div>
       </form>
     </Card>
+  );
+};
+
+const ErrorExperiment = (props) => {
+  const classes = useStyles();
+  const [prevalence, setPrevalence] = React.useState(0.03);
+  const [sensitive, setSensitive] = React.useState(0.99);
+  const [specific, setSpecific] = React.useState(0.95);
+  const handleChangeSensitive = (event, newValue) => {
+    setSensitive(newValue);
+  };
+  const handleChangeSpecific = (event, newValue) => {
+    setSpecific(newValue);
+  };
+  const handleChangePrevalence = (event, newValue) => {
+    setPrevalence(newValue);
+  };
+
+  return (
+    <Grid container>
+      <Grid>
+        <ControlledSankey
+          params={{
+            prevalence: prevalence,
+            sensitivity: sensitive,
+            specificity: specific,
+          }}
+        />
+      </Grid>
+      The chance of you having the disease, given that the test is positive{" "}
+      {(
+        (prevalence * sensitive) /
+        (prevalence * sensitive + (1 - prevalence) * (1 - specific))
+      ).toFixed(2)}
+      <Grid>
+        <div className={classes.slider}>
+          <Typography variant="body2" gutterBottom>
+            How likely is your event? (e.g. how many percent of people have the
+            disease)
+          </Typography>
+          <Slider
+            min={0}
+            max={1}
+            step={0.01}
+            value={prevalence}
+            onChange={handleChangePrevalence}
+            valueLabelDisplay="auto"
+          />
+        </div>
+        <div className={classes.slider}>
+          <Typography variant="body2" gutterBottom>
+            How sensitive is your test? i.e. how likely is it to find True
+            Positive
+          </Typography>
+          <Slider
+            min={0}
+            max={1}
+            step={0.01}
+            value={sensitive}
+            onChange={handleChangeSensitive}
+            valueLabelDisplay="auto"
+          />
+        </div>
+        <div className={classes.slider}>
+          <Typography variant="body2" gutterBottom>
+            How specific is your test? i.e. how likely is it to find True
+            Negative
+          </Typography>
+          <Slider
+            min={0}
+            max={1}
+            step={0.01}
+            value={specific}
+            onChange={handleChangeSpecific}
+            valueLabelDisplay="auto"
+          />
+        </div>
+      </Grid>
+    </Grid>
   );
 };
 
@@ -138,55 +232,75 @@ export const Lesson3 = (props) => {
         Most people overestimate this probability. Let's look at why.
       </Typography>
 
-      <div className="sticky" style={{ ...chartStyle, top: 0 }}>
-        <ErrorSankey currentStep={currentStep} />
+      <div id="contains-sticky">
+        <div className="sticky" style={{ ...chartStyle, top: 0 }}>
+          <ErrorSankey currentStep={currentStep} />
+        </div>
+        <Scrollama onStepEnter={onStepEnter} offset={0.6}>
+          <Step data={1}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                The key here is the piece of information on how rare this new
+                disease is. If you randomly select 100 persons, only 3 would
+                have the disease.
+              </StepContent>
+            </div>
+          </Step>
+
+          <Step data={2}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                Even with our 99% accuracy, which in this situation we can take
+                to mean that we detected all 3 infected persons successfully,
+                overall you would still have only 3 people infected and
+                positive.
+              </StepContent>
+            </div>
+          </Step>
+
+          <Step data={3}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                At 5% false positive, there will be about 5 people who are not
+                infected, but their tests are wrongly positive.
+              </StepContent>
+            </div>
+          </Step>
+
+          <Step data={4}>
+            <div className="step" style={stepStyle}>
+              <StepContent style={{ marginBottom: 500 }}>
+                So, you can see that even if you are among the 8 people who
+                tested positive, it is more likely that you are among the 5 who
+                were
+                <span style={{ color: "red" }}> misindentified </span> than the
+                3 who were{" "}
+                <span style={{ color: "green" }}> correctly identified </span>.
+              </StepContent>
+            </div>
+          </Step>
+        </Scrollama>
       </div>
-      <Scrollama onStepEnter={onStepEnter} offset={0.6}>
-        <Step data={1}>
-          <div className="step" style={stepStyle}>
-            <StepContent>
-              The key here is the piece of information on how rare this new
-              disease is. If you randomly select 100 persons, only 3 would have
-              the disease.
-            </StepContent>
-          </div>
-        </Step>
 
-        <Step data={2}>
-          <div className="step" style={stepStyle}>
-            <StepContent>
-              Even with our 99% accuracy, which in this situation we can take to
-              mean that we detected all 3 infected persons successfully, overall
-              you would still have only 3 people infected and positive.
-            </StepContent>
-          </div>
-        </Step>
-
-        <Step data={3}>
-          <div className="step" style={stepStyle}>
-            <StepContent>
-              At 5% false positive, there will be about 5 people who are not
-              infected, but their tests are wrongly positive.
-            </StepContent>
-          </div>
-        </Step>
-
-        <Step data={4}>
-          <div className="step" style={stepStyle}>
-            <StepContent style={{ marginBottom: 300 }}>
-              So, you can see that even if you are among the 8 people who tested
-              positive, it is more likely that you are among the 5 who were
-              <span style={{ color: "red" }}> misindentified </span> than the 3
-              who were{" "}
-              <span style={{ color: "green" }}> correctly identified </span>.
-            </StepContent>
-          </div>
-        </Step>
-      </Scrollama>
-
-      <Typography variant="body1" gutterBottom>
+      <Typography variant="body1" marginTop={500} gutterBottom>
         Hopefully, you have seen now how our intuition can mislead us, and how a
         basic understanding of Statistics can help us clarify things.
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        If you are designing such a test, maybe you would want to focus on
+        reducing the False Positive more so than the False Negative. But maybe
+        if you are designing a web advertisement, and you don't care if your ad
+        reaches someone who does not want your product, but you <em>really</em>{" "}
+        do not want to miss someone who might buy it, then you focus might be
+        opposite.
+      </Typography>
+      <div style={{ marginBottom: 50 }}>
+        <ErrorExperiment />
+      </div>
+      <Typography variant="body1" gutterBottom>
+        You will see these error types: True Positive, False Positive, True
+        Negative, False Negative in a lot of places, such as in Machine
+        Learning. So it is certainly worth knowing them well!
       </Typography>
     </LessonLayout>
   );

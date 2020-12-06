@@ -8,13 +8,10 @@ const data = {
       step: 1,
     },
     {
-      // Chance of test detecting disease correctly (true positive): 90%
       name: "Infected",
       step: 1,
     },
     {
-      // Chance of test incorrectly detecting disease on uninfected person
-      // (false positive): 1%
       name: "Not infected",
       step: 1,
     },
@@ -179,5 +176,68 @@ export const ErrorSankey = (props) => {
         {activeLink && this._renderHint()}
       </Sankey>
     </div>
+  );
+};
+
+export const ControlledSankey = (props) => {
+  const { prevalence, sensitivity, specificity } = props.params;
+  const data = {
+    nodes: [
+      {
+        // Chance of actually catching disease: 3%
+      },
+      {
+        name: "Infected",
+      },
+      {
+        name: "Not infected",
+      },
+      { name: "Infected & correct ➕", color: "green" },
+      { name: "Infected & wrongly ➖" },
+      { name: "Not infected & wrongly ➕", color: "red" },
+      { name: "Not infected & correct ➖" },
+    ],
+    links: [
+      { source: 0, target: 1, value: prevalence },
+      { source: 0, target: 2, value: 1 - prevalence },
+      {
+        source: 1,
+        target: 3,
+        value: sensitivity * prevalence,
+        // True Positive
+      },
+      {
+        source: 1,
+        target: 4,
+        value: (1 - sensitivity) * prevalence,
+        // False Negative
+      },
+      {
+        source: 2,
+        target: 5,
+        value: (1 - prevalence) * (1 - specificity),
+        // False Positive
+      },
+      {
+        source: 2,
+        target: 6,
+        value: (1 - prevalence) * specificity,
+        // True Negative
+      },
+    ],
+  };
+
+  return (
+    <Sankey
+      animation
+      align="center"
+      width={600}
+      height={300}
+      nodeWidth={15}
+      nodePadding={20}
+      padding={20}
+      nodes={data.nodes}
+      links={data.links}
+    />
   );
 };
