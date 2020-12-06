@@ -6,9 +6,11 @@ import { Lesson2 } from "./components/Lesson2";
 import { Lesson3 } from "./components/Lesson3";
 import { Lesson4 } from "./components/Lesson4";
 import EntryQuiz from "./components/EntryQuiz";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default (props) => (
   <HashRouter>
+    <ScrollToTop />
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/entry-quiz" component={EntryQuiz} />

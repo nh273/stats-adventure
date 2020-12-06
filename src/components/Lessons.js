@@ -1,13 +1,13 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { Navbar } from "./Navbar";
 import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
   layout: {
@@ -48,9 +48,30 @@ const LessonLayout = (props) => {
             </Paper>
 
             <Card className={classes.controls}>
-              <Button variant="contained">Back</Button>
+              {props.backLink ? (
+                <Button
+                  component={Link}
+                  to={props.backLink}
+                  variant="contained"
+                >
+                  <Typography>{props.backText}</Typography>
+                </Button>
+              ) : (
+                ""
+              )}
+
               <Grid container justify="flex-end">
-                <Button variant="contained">Forward</Button>
+                {props.fwdLink ? (
+                  <Button
+                    component={Link}
+                    to={props.fwdLink}
+                    variant="contained"
+                  >
+                    <Typography>{props.fwdText}</Typography>
+                  </Button>
+                ) : (
+                  ""
+                )}
               </Grid>
             </Card>
           </Grid>

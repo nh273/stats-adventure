@@ -8,7 +8,12 @@ import Typography from "@material-ui/core/Typography";
 
 export const Lesson1 = (props) => {
   return (
-    <LessonLayout>
+    <LessonLayout
+      backLink="/"
+      backText="Home"
+      fwdLink="/histogram-distribution"
+      fwdText="Distributions"
+    >
       <Typography variant="h2" gutterBottom>
         Describing data and uncertainty
       </Typography>
