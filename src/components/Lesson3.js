@@ -5,7 +5,7 @@ import ErrorSankey from "../viz/Sankey";
 
 export const Lesson3 = (props) => {
   return (
-    <LessonLayout>
+    <LessonLayout backLink="/histogram-distribution" backText="Distributions">
       <Typography variant="h2" gutterBottom>
         An introduction to errors
       </Typography>
