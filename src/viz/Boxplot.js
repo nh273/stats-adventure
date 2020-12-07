@@ -26,25 +26,29 @@ const sumStat = (data) => {
     mean: mean,
   };
 };
-
-var xScale = d3.scaleLinear().domain([0, 0.15]).range([padding.left, width]);
+const sumstat = sumStat(worldHospRates);
+const xScale = d3.scaleLinear().domain([0, 0.15]).range([padding.left, width]);
 
 const colorScale = d3
   .scaleSequential()
   .interpolator(d3.interpolateInferno)
   .domain([0.01, 0.15]);
+
+const boxHeight = 90;
 class Boxplot extends Component {
   componentDidMount() {
     this.setupChart();
     this.drawCirles();
+    this.drawMedian();
+    this.drawMean();
+    this.drawWhisker();
+    this.drawBox();
   }
   componentDidUpdate() {
     this.setupChart();
   }
   setupChart = () => {
     const svg = d3.select("#boxplot");
-    const sumstat = sumStat(worldHospRates);
-    console.log(sumstat);
     svg
       .append("g")
       .attr(
@@ -52,29 +56,25 @@ class Boxplot extends Component {
         `translate(${padding.left},${height - margin.bottom / 2})`
       )
       .call(d3.axisBottom(xScale).ticks(10));
+  };
 
+  drawWhisker = () => {
+    const svg = d3.select("#boxplot");
     // Show the main horizontal line
     svg
       .append("line")
-      .attr("x1", (d) => xScale(sumstat.min))
-      .attr("x2", (d) => xScale(sumstat.max))
       .attr("y1", height / 2)
       .attr("y2", height / 2)
+      .attr("x1", (d) => xScale(sumstat.min))
+      .attr("x2", (d) => xScale(sumstat.max))
+      .transition()
+      .duration(500)
       .attr("stroke", "black")
       .style("width", 40);
+  };
 
-    // rectangle for the main box
-    const boxHeight = 90;
-    svg
-      .append("rect")
-      .attr("x", xScale(sumstat.q1))
-      .attr("width", (d) => xScale(sumstat.q3) - xScale(sumstat.q1))
-      .attr("y", height / 2 - boxHeight / 2)
-      .attr("height", boxHeight)
-      .attr("stroke", "black")
-      .style("fill", "#69b3a2")
-      .style("opacity", 0.3);
-
+  drawMedian = () => {
+    const svg = d3.select("#boxplot");
     // Show the median
     svg
       .append("line")
@@ -83,8 +83,13 @@ class Boxplot extends Component {
       .attr("x1", (d) => xScale(sumstat.median))
       .attr("x2", (d) => xScale(sumstat.median))
       .attr("stroke", "red")
+      .transition()
+      .duration(500)
       .attr("stroke-width", 3);
+  };
 
+  drawMean = () => {
+    const svg = d3.select("#boxplot");
     // Show the mean
     svg
       .append("line")
@@ -93,8 +98,27 @@ class Boxplot extends Component {
       .attr("x1", (d) => xScale(sumstat.mean))
       .attr("x2", (d) => xScale(sumstat.mean))
       .attr("stroke", "orange")
+      .transition()
+      .duration(500)
       .attr("stroke-width", 3)
       .attr("stroke-dasharray", 4);
+  };
+
+  drawBox = () => {
+    const svg = d3.select("#boxplot");
+
+    svg
+      .append("rect")
+      .attr("x", xScale(sumstat.q1))
+      .attr("width", (d) => xScale(sumstat.q3) - xScale(sumstat.q1))
+      .attr("y", height / 2 - boxHeight / 2)
+      .attr("height", boxHeight)
+      .attr("stroke", "black")
+      .style("fill", "#69b3a2")
+      .style("opacity", 0)
+      .transition()
+      .duration(500)
+      .style("opacity", 0.3);
   };
 
   drawCirles = () => {
