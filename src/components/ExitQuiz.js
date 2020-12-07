@@ -5,53 +5,60 @@ import { db } from "../Firebase/firebase";
 const exitQuiz = [
   {
     qid: "exit_attitude_0",
-    questionContent: "I like statistics.",
+    questionContent:
+      "I find the idea of the project (Stats Adventure) interesting",
     questionChoices: ["Disagree 🤢", "Neutral 😕", "Agree 😍"],
   },
   {
     qid: "exit_attitude_1",
-    questionContent: "I am not afraid of statistics.",
+    questionContent:
+      "I agree with the premise that some level of Statistics understanding is necessary for most people",
     questionChoices: ["Disagree 🤢", "Neutral 😕", "Agree 😍"],
   },
   {
     qid: "exit_attitude_2",
-    questionContent: "I enjoy taking statistics courses.",
+    questionContent:
+      "I find the Statistics concepts covered in the project (Stats Adventure) to be useful and relevant.",
     questionChoices: ["Disagree 🤢", "Neutral 😕", "Agree 😍"],
   },
   {
     qid: "exit_attitude_3",
-    questionContent: "I am interested in learning statistics.",
+    questionContent: "I find the visualizations in Stats Adventure helpful",
     questionChoices: ["Disagree 🤢", "Neutral 😕", "Agree 😍"],
   },
   {
     qid: "exit_attitude_4",
-    questionContent: "I don’t find it hard to understand statistical concept.",
+    questionContent:
+      "The interactivity in Stats Adventure helped me understand the concepts better",
     questionChoices: ["Disagree 🤢", "Neutral 😕", "Agree 😍"],
   },
   {
     qid: "exit_attitude_5",
-    questionContent: "Statistics can be quickly learned by most people.",
+    questionContent:
+      "The context used by Stats Adventure (fighting a pandemic) helped me engage with the subject.",
     questionChoices: ["Disagree 🤢", "Neutral 😕", "Agree 😍"],
   },
   {
     qid: "exit_attitude_6",
-    questionContent: "I can learn statistics.",
+    questionContent: "Stats Adventure is easy to navigate",
     questionChoices: ["Disagree 🤢", "Neutral 😕", "Agree 😍"],
   },
   {
     qid: "exit_attitude_7",
-    questionContent: "Statistics should be a required part of my study",
+    questionContent:
+      "Stats Adventure's scrolling interactivity is pleasant to use",
     questionChoices: ["Disagree 🤢", "Neutral 😕", "Agree 😍"],
   },
   {
     qid: "exit_attitude_8",
     questionContent:
-      "Other than for study purpose, statistics is also useful for my daily life.",
+      "Stats Adventure has helped my understanding of Statistics",
     questionChoices: ["Disagree 🤢", "Neutral 😕", "Agree 😍"],
   },
   {
     qid: "exit_attitude_9",
-    questionContent: "I will use statistics in my future career.",
+    questionContent:
+      "Stats Adventure has improved my attitude towards Statistics",
     questionChoices: ["Disagree 🤢", "Neutral 😕", "Agree 😍"],
   },
 ];
