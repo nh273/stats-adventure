@@ -14,7 +14,12 @@ export const Lesson4 = (props) => {
     setCurrentStep(data);
   };
   return (
-    <LessonLayout backLink="/error-bias" backText="Introduction to Errors">
+    <LessonLayout
+      backLink="/error-bias"
+      backText="Introduction to Errors"
+      fwdLink="/exit-quiz"
+      fwdText="Optional Exit Survey"
+    >
       <Typography variant="h2" gutterBottom>
         What is "statistically significant" anyway?
       </Typography>

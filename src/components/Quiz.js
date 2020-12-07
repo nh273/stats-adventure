@@ -86,12 +86,12 @@ const SubmitAlert = (props) => {
           </Button>
           <Button
             component={Link}
-            to="/descriptive-stats"
+            to={props.fwdLink}
             variant="contained"
             color="primary"
             autoFocus
           >
-            Go to the first lesson!
+            {props.fwdText}
           </Button>
         </DialogActions>
       </Dialog>
@@ -171,6 +171,8 @@ class Quiz extends React.Component {
         <SubmitAlert
           open={this.state.alertOpen}
           handleClose={this.handleCloseAlert}
+          fwdLink={this.props.fwdLink}
+          fwdText={this.props.fwdText}
         />
       </React.Fragment>
     );

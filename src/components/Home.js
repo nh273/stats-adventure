@@ -83,7 +83,7 @@ class Home extends Component {
                   className={classes.button}
                 >
                   <Typography variant="body1">
-                    Begin with the first adventure!
+                    Begin with the adventure!
                   </Typography>
                 </Button>
               </Paper>
