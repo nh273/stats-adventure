@@ -36,16 +36,26 @@ const colorScale = d3
 
 const boxHeight = 90;
 class Boxplot extends Component {
-  componentDidMount() {
-    this.setupChart();
-    this.drawCirles();
-    this.drawMedian();
-    this.drawMean();
-    this.drawWhisker();
-    this.drawBox();
-  }
-  componentDidUpdate() {
-    this.setupChart();
+  componentDidUpdate(prevProps) {
+    const currentStep = this.props.currentStep;
+    if (prevProps.currentStep !== currentStep) {
+      if (currentStep === 1) {
+        this.setupChart();
+      } else if (currentStep === 2) {
+        this.drawCirles();
+      } else if (currentStep === 3) {
+        this.drawBox();
+      } else if (currentStep === 4) {
+        this.drawWhisker();
+        this.highlightOuliers();
+      } else if (currentStep === 5) {
+        this.drawMedian();
+      } else if (currentStep === 6) {
+        this.drawMean();
+      } else if (currentStep === 7) {
+        this.highlightOuliers();
+      }
+    }
   }
   setupChart = () => {
     const svg = d3.select("#boxplot");
@@ -121,6 +131,18 @@ class Boxplot extends Component {
       .style("opacity", 0.3);
   };
 
+  highlightOuliers = () => {
+    const svg = d3.select("#boxplot");
+    svg
+      .selectAll(".outlier")
+      .transition()
+      .duration(250)
+      .attr("r", 20)
+      .transition()
+      .duration(250)
+      .attr("r", 10);
+  };
+
   drawCirles = () => {
     // create a tooltip
     const tooltip = d3
@@ -151,8 +173,9 @@ class Boxplot extends Component {
       .data(worldHospRates)
       .enter()
       .append("circle")
+      .attr("class", (d) => (+d.rates > 0.08 ? "outlier" : "non-outlier"))
       .attr("cx", 0)
-      .attr("cy", function (d) {
+      .attr("cy", (d) => {
         return height / 2 - jitterWidth / 2 + Math.random() * jitterWidth;
       })
       .attr("r", 10)

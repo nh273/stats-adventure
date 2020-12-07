@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import { Scrollama, Step } from "react-scrollama";
+import Typography from "@material-ui/core/Typography";
+
 import LazyLoad from "react-lazyload";
 import LessonLayout from "./Lessons";
 import { MapChart } from "../viz/WorldMap";
 import Boxplot from "../viz/Boxplot";
 import growth from "../assets/images/growth.PNG";
-import Typography from "@material-ui/core/Typography";
+import { stepStyle, chartStyle, StepContent } from "./Steps";
 
 export const Lesson1 = (props) => {
+  const [currentStep, setCurrentStep] = useState(0);
+  const onStepEnter = ({ data }) => {
+    setCurrentStep(data);
+  };
   return (
     <LessonLayout
       backLink="/"
@@ -59,42 +66,92 @@ export const Lesson1 = (props) => {
         one below: a <em>"box-and-whisker"</em> plot. It describes some crucial
         summarizing information about the 20 data points we have.
       </Typography>
-      <Typography variant="body1" gutterBottom>
-        This type of plot is extremely common in science, but not many people
-        can read it. Usually, the data points are not there, but I have overlaid
-        them so we can relate the plot to the data better. First, each data
-        point from the map is arranged on the horizontal axis. I have randomly
-        nudged them up and down just a bit to see the nearly-overlapping points
-        better.
-      </Typography>
-      <div className="box-plot-area">
-        <Boxplot />
+      <div className="contains-sticky">
+        <div className="sticky" style={{ ...chartStyle, top: 200 }}>
+          <Boxplot currentStep={currentStep} />
+        </div>
+        <Scrollama onStepEnter={onStepEnter} offset={0.6}>
+          <Step data={1}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                This type of plot is extremely common in science, but not many
+                people can read it.
+              </StepContent>
+            </div>
+          </Step>
+          <Step data={2}>
+            <div className="step" style={stepStyle}>
+              <StepContent style={{ marginBottom: 300 }}>
+                Usually, the data points are not there, but I have overlaid them
+                so we can relate the plot to the data better. First, each data
+                point from the map is arranged on the horizontal axis. I have
+                randomly nudged them up and down just a bit to see the
+                nearly-overlapping points better.
+              </StepContent>
+            </div>
+          </Step>
+          <Step data={3}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                The blue box is the Interquartile Range (IQR): the middle 50% of
+                the data is in this box. The top and bottom 25% are outside.
+              </StepContent>
+            </div>
+          </Step>
+          <Step data={4}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                The whiskers start from either ends of the box, and have length
+                equal to 1.5 of the IQR. The whiskers give us an idea of what is
+                considered "extreme". Data points outside the whiskers are
+                generally considered "outliers" or <em>extreme values</em> by
+                convention.
+              </StepContent>
+            </div>
+          </Step>
+          <Step data={5}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                The red line is the "median", which is simply the middle one
+                among all the values. This gives us an idea about the "average"
+                hospitalization rates.
+              </StepContent>
+            </div>
+          </Step>
+          <Step data={6}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                The dotted orange line is the "mean", which might be the kind of
+                "average" that you are familiar with: summing all values
+                together then dividing by the number of values. Here we can see
+                the mean is higher than the median.
+              </StepContent>
+            </div>
+          </Step>
+          <Step data={7}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                This is because of the presence of an "outlier" of extremely
+                high value on the right, pulling the mean higher. The median is
+                merely determined by rank, so it is not affected by how far this
+                outlier is from the rest of the data
+              </StepContent>
+            </div>
+          </Step>
+        </Scrollama>
       </div>
-      <Typography variant="body1" gutterBottom>
-        The red line is the "median", which is simply the middle one among all
-        the values. This gives us an idea about the "average" hospitalization
-        rates. The dotted orange line is the "mean", which might be the kind of
-        "average" that you are familiar with: summing all values together then
-        dividing by the number of values. Here we can see the mean is higher
-        than the median. This is because of the presence of an "outlier" of
-        extremely high value on the right, pulling the mean higher. The median
-        is merely determined by rank, so it is not affected by how far this
-        outlier is from the rest of the data.
-      </Typography>
+
       <Typography variant="body1" gutterBottom>
         Already you might see how carefully selected Statistics can be used to
-        construct a narrative with the same data. Say we want the average Income
-        of people in a country, which tend to have many high outliers (some
-        people make a lot of money). You might be tempted to use the mean rather
-        than the median, if you want to make the "average" income appears
-        higher.
+        construct a narrative with the same data. Let's say your country has a
+        region that is doing really badly, with outlyingly high hospitalization
+        rates. If you want to make the "average" hospitalization rates appears
+        lower, you might be tempted to use the median rather than the mean.
       </Typography>
       <Typography variant="body1" gutterBottom>
-        The blue box is the Interquartile Range (IQR): the middle 50% of the
-        data is in this box. The top and bottom 25% are outside. The whiskers
-        start from either ends of the box, and have length equal to 1.5 of the
-        IQR. Data points outside the whiskers are generally considered
-        "outliers" by convention.
+        This is what Statistics is about: a common way to summarize and talk
+        about data. This is also why you should understand Statistics, because
+        it is a tool that people can use to make arguments.
       </Typography>
     </LessonLayout>
   );
