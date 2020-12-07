@@ -92,7 +92,7 @@ export const Navbar = (props) => {
             </ListItem>
             <Divider />
             <ListItem button component={Link} to="/entry-quiz">
-              <ListItemText primary="Test Yourself!" />
+              <ListItemText primary="How do you feel about Statistics?" />
             </ListItem>
             <Divider />
             {[
