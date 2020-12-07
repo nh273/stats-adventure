@@ -36,6 +36,7 @@ const colorScale = d3
 class Boxplot extends Component {
   componentDidMount() {
     this.setupChart();
+    this.drawCirles();
   }
   componentDidUpdate() {
     this.setupChart();
@@ -94,15 +95,18 @@ class Boxplot extends Component {
       .attr("stroke", "orange")
       .attr("stroke-width", 3)
       .attr("stroke-dasharray", 4);
+  };
 
+  drawCirles = () => {
     // create a tooltip
     const tooltip = d3
       .select(".box-plot-area")
       .append("div")
       .style("opacity", 0)
-      .attr("class", "tooltip")
+      .attr("id", "tooltip")
       .style("font-size", "16px");
-    var mouseover = (e) => {
+
+    const mouseover = (e) => {
       const d = e.target.__data__;
       tooltip.transition().duration(200).style("opacity", 1);
       tooltip
@@ -111,20 +115,19 @@ class Boxplot extends Component {
         .style("top", height / 2 - 30 + "px");
     };
 
-    var mouseleave = (d) => {
+    const mouseleave = (d) => {
       tooltip.transition().duration(200).style("opacity", 0);
     };
 
     // add circles
     const jitterWidth = 20;
-    svg
+    const svg = d3.select("#boxplot");
+    const dots = svg
       .selectAll("circle")
       .data(worldHospRates)
       .enter()
       .append("circle")
-      .attr("cx", function (d) {
-        return xScale(d.rates);
-      })
+      .attr("cx", 0)
       .attr("cy", function (d) {
         return height / 2 - jitterWidth / 2 + Math.random() * jitterWidth;
       })
@@ -135,6 +138,13 @@ class Boxplot extends Component {
       .attr("stroke", "white")
       .on("mouseover", mouseover)
       .on("mouseleave", mouseleave);
+
+    dots
+      .transition()
+      .attr("cx", function (d) {
+        return xScale(d.rates);
+      })
+      .duration(500);
   };
 
   render() {
