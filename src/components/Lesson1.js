@@ -82,34 +82,15 @@ export const Lesson1 = (props) => {
           <Step data={2}>
             <div className="step" style={stepStyle}>
               <StepContent style={{ marginBottom: 300 }}>
-                Usually, the data points are not there, but I have overlaid them
-                so we can relate the plot to the data better. First, each data
-                point from the map is arranged on the horizontal axis. I have
-                randomly nudged them up and down just a bit to see the
-                nearly-overlapping points better.
+                First, each data point from the map is arranged on the
+                horizontal axis. These points might not be there in other
+                box-and-whisker plots you see. I have randomly nudged the points
+                up and down just a bit to see the nearly-overlapping points
+                better.
               </StepContent>
             </div>
           </Step>
           <Step data={3}>
-            <div className="step" style={stepStyle}>
-              <StepContent>
-                The blue box is the Interquartile Range (IQR): the middle 50% of
-                the data is in this box. The top and bottom 25% are outside.
-              </StepContent>
-            </div>
-          </Step>
-          <Step data={4}>
-            <div className="step" style={stepStyle}>
-              <StepContent>
-                The whiskers start from either ends of the box, and have length
-                equal to 1.5 of the IQR. The whiskers give us an idea of what is
-                considered "extreme". Data points outside the whiskers are
-                generally considered "outliers" or <em>extreme values</em> by
-                convention.
-              </StepContent>
-            </div>
-          </Step>
-          <Step data={5}>
             <div className="step" style={stepStyle}>
               <StepContent>
                 The red line is the "median", which is simply the middle one
@@ -118,7 +99,7 @@ export const Lesson1 = (props) => {
               </StepContent>
             </div>
           </Step>
-          <Step data={6}>
+          <Step data={4}>
             <div className="step" style={stepStyle}>
               <StepContent>
                 The dotted orange line is the "mean", which might be the kind of
@@ -128,19 +109,44 @@ export const Lesson1 = (props) => {
               </StepContent>
             </div>
           </Step>
+          <Step data={5}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                This is because of the presence of an extremely high value on
+                the right, pulling the mean higher. The median is merely
+                determined by rank, so it is not affected by how far this high
+                point is from the rest of the data. If you are planning hospital
+                beds, using either the median or mean rates of hospitalization
+                to calculate is a perfectly justifiable choice.
+              </StepContent>
+            </div>
+          </Step>
+          <Step data={6}>
+            <div className="step" style={stepStyle}>
+              <StepContent>
+                The blue box is the Interquartile Range (IQR): the middle 50% of
+                the data is in this box. The top and bottom 25% are outside. If
+                you want to be safer, you can also use the top of the blue box
+                to calculate your number of beds. You can rest assure that the
+                majority of known hospitalization rates is less than that.
+              </StepContent>
+            </div>
+          </Step>
           <Step data={7}>
             <div className="step" style={stepStyle}>
               <StepContent>
-                This is because of the presence of an "outlier" of extremely
-                high value on the right, pulling the mean higher. The median is
-                merely determined by rank, so it is not affected by how far this
-                outlier is from the rest of the data
+                The whiskers start from either ends of the box, and have length
+                equal to 1.5 of the IQR. The whiskers give us an idea of what is
+                considered "extreme". Data points outside the whiskers are
+                generally considered "outliers" or <em>extreme values</em> by
+                convention. Using the maximum known hospitalization rates might
+                consume more resource than necessary, as it seems to be an
+                outlier.
               </StepContent>
             </div>
           </Step>
         </Scrollama>
       </div>
-
       <Typography variant="body1" gutterBottom>
         Already you might see how carefully selected Statistics can be used to
         construct a narrative with the same data. Let's say your country has a

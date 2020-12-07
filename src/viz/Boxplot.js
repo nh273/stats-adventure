@@ -44,15 +44,15 @@ class Boxplot extends Component {
       } else if (currentStep === 2) {
         this.drawCirles();
       } else if (currentStep === 3) {
-        this.drawBox();
-      } else if (currentStep === 4) {
-        this.drawWhisker();
-        this.highlightOuliers();
-      } else if (currentStep === 5) {
         this.drawMedian();
-      } else if (currentStep === 6) {
+      } else if (currentStep === 4) {
         this.drawMean();
+      } else if (currentStep === 5) {
+        this.highlightOuliers();
+      } else if (currentStep === 6) {
+        this.drawBox();
       } else if (currentStep === 7) {
+        this.drawWhisker();
         this.highlightOuliers();
       }
     }
