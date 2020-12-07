@@ -23,8 +23,15 @@ export const dodger = (radius) => {
   };
 };
 
-export const pachinko = (random, svg, xScale, height, margin, extreme) => {
-  const n = 1000;
+export const pachinko = (
+  random,
+  svg,
+  xScale,
+  height,
+  margin,
+  extreme,
+  n = 1000
+) => {
   const radius = 2;
   const dodge = dodger(radius * 2 + 1);
   const values = Float64Array.from({ length: n }, random);
