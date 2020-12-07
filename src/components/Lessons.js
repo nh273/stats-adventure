@@ -58,7 +58,9 @@ const LessonLayout = (props) => {
                   variant="contained"
                   className={classes.button}
                 >
-                  <Typography variant="body1">{props.backText}</Typography>
+                  <Typography variant="body1">
+                    &lt;&lt; {props.backText}
+                  </Typography>
                 </Button>
               ) : (
                 ""
@@ -72,7 +74,9 @@ const LessonLayout = (props) => {
                     variant="contained"
                     className={classes.button}
                   >
-                    <Typography variant="body1">{props.fwdText}</Typography>
+                    <Typography variant="body1">
+                      {props.fwdText} &gt;&gt;
+                    </Typography>
                   </Button>
                 ) : (
                   ""
