@@ -125,7 +125,7 @@ export const Lesson4 = (props) => {
         Finally, there is one more piece to the puzzle.
       </Typography>
       <div className="contains-sticky">
-        <div className="sticky" style={{ ...chartStyle, top: 200 }}>
+        <div className="sticky" style={{ ...chartStyle, top: "25%" }}>
           <Sig dataStep={currentStep} stepProgress={currentProgress} />
         </div>
         <Scrollama

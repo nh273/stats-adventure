@@ -195,7 +195,15 @@ class Boxplot extends Component {
   };
 
   render() {
-    return <svg id="boxplot" width={width} height={height}></svg>;
+    return (
+      <svg
+        id="boxplot"
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMidYMid"
+      ></svg>
+    );
   }
 }
 

@@ -9,7 +9,7 @@ export const stepStyle = {
   paddingBottom: 300,
   opacity: 0.9,
 };
-export const chartStyle = { position: "sticky", top: 200, zIndex: 1 };
+export const chartStyle = { position: "sticky", top: "30%", zIndex: 1 };
 
 export const StepContent = (props) => {
   return (

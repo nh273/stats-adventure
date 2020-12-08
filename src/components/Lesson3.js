@@ -238,7 +238,13 @@ export const Lesson3 = (props) => {
       </Typography>
 
       <div id="contains-sticky">
-        <div className="sticky" style={{ ...chartStyle, top: 0 }}>
+        <div
+          className="sticky"
+          style={{
+            ...chartStyle,
+            top: 0, // this one takes up the whole screen so top = 0 is fine
+          }}
+        >
           <ErrorSankey currentStep={currentStep} />
         </div>
         <Scrollama onStepEnter={onStepEnter} offset={0.6}>

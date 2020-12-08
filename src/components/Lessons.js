@@ -45,7 +45,7 @@ const LessonLayout = (props) => {
       <Navbar />
       <div className={classes.layout}>
         <Grid container className={classes.mainGrid}>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={10}>
             <Paper elevation={1} className={classes.markdown}>
               {props.children}
             </Paper>
